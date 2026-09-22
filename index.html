@@ -6,13 +6,14 @@
     <title>Vidamix ® - Produtos Artesanais, Sem Glúten e Sem Lactose</title>
     <style>
         :root {
-            --primary-blue: #0b2545;
-            --secondary-blue: #134074;
-            --accent-blue: #8da9c4;
-            --light-bg: #eeeff2;
+            /* Azul Oficial Profundo da Vidamix ® */
+            --primary-blue: #0A192F;
+            --secondary-blue: #172A45;
+            --accent-blue: #64FFDA;
+            --light-bg: #f4f6f9;
             --white: #ffffff;
-            --text-dark: #333333;
-            --accent-green: #386641;
+            --text-dark: #2d3748;
+            --accent-green: #2e7d32;
         }
 
         * {
@@ -28,39 +29,55 @@
             line-height: 1.6;
         }
 
-        /* Cabeçalho com Fundo Azul */
+        /* Cabeçalho com o Azul Oficial */
         header {
             background-color: var(--primary-blue);
             color: var(--white);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border-bottom: 2px solid var(--secondary-blue);
         }
 
         .navbar {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 1px;
+        /* Espaço para o Logo Oficial */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .logo span {
+        .logo-container img {
+            height: 50px; /* Ajuste a altura conforme o seu arquivo de logo */
+            object-fit: contain;
+        }
+
+        .logo-fallback {
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo-fallback span {
             font-size: 12px;
             vertical-align: super;
-            background-color: var(--accent-blue);
-            color: var(--primary-blue);
-            padding: 1px 4px;
-            border-radius: 3px;
+            background-color: var(--secondary-blue);
+            color: var(--white);
+            padding: 2px 5px;
+            border-radius: 4px;
             font-weight: bold;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .nav-links {
@@ -77,15 +94,15 @@
         }
 
         .nav-links a:hover {
-            color: var(--accent-blue);
+            color: #90cdf4;
         }
 
-        /* Seção Início / Hero */
+        /* Seção Início / Hero com Azul Oficial */
         .hero {
-            background: linear-gradient(rgba(11, 37, 69, 0.85), rgba(19, 64, 116, 0.85)), url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(23, 42, 69, 0.9)), url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
             color: var(--white);
             text-align: center;
-            padding: 100px 20px;
+            padding: 110px 20px;
         }
 
         .hero h1 {
@@ -97,7 +114,7 @@
             font-size: 18px;
             max-width: 700px;
             margin: 0 auto 30px auto;
-            color: var(--accent-blue);
+            color: #cbd5e1;
         }
 
         .btn-cta {
@@ -115,8 +132,7 @@
 
         .btn-cta:hover {
             transform: translateY(-2px);
-            background-color: var(--accent-blue);
-            color: var(--primary-blue);
+            background-color: #e2e8f0;
         }
 
         /* Conteúdo Geral */
@@ -143,7 +159,7 @@
             display: block;
             width: 60px;
             height: 3px;
-            background-color: var(--accent-blue);
+            background-color: var(--primary-blue);
             margin: 10px auto 0 auto;
         }
 
@@ -157,6 +173,7 @@
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
+            border-top: 4px solid var(--primary-blue);
         }
 
         .rules-banner {
@@ -226,8 +243,8 @@
 
         .badge {
             display: inline-block;
-            background-color: #e9edc9;
-            color: var(--accent-green);
+            background-color: #e2e8f0;
+            color: var(--primary-blue);
             font-size: 0.75rem;
             padding: 0.25rem 0.5rem;
             border-radius: 4px;
@@ -252,32 +269,17 @@
             background-color: #20ba5a;
         }
 
-        /* Vídeos */
+        /* Seção Vídeo (Deixada em branco por enquanto) */
         .video-container {
             max-width: 800px;
             margin: 0 auto;
             background: var(--white);
-            padding: 20px;
+            padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             text-align: center;
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
+            color: #718096;
+            border: 2px dashed #cbd5e1;
         }
 
         /* Contato */
@@ -287,16 +289,18 @@
             text-align: center;
             padding: 40px;
             border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .contact-content p {
             margin-bottom: 20px;
             font-size: 18px;
+            color: #cbd5e1;
         }
 
         /* Rodapé */
         footer {
-            background-color: #061528;
+            background-color: #050d1a;
             color: var(--white);
             text-align: center;
             padding: 25px 20px;
@@ -309,7 +313,16 @@
     <!-- Cabeçalho -->
     <header>
         <nav class="navbar">
-            <div class="logo">Vidamix <span>®</span></div>
+            <!-- LOGO OFICIAL: Se o seu arquivo de imagem chamar 'logo.png', basta colocá-lo na mesma pasta -->
+            <div class="logo-container">
+                <a href="#inicio">
+                    <img src="logo.png" alt="Logo Vida Mix" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+                </a>
+                <div id="fallback-logo" class="logo-fallback" style="display:none;">
+                    Vidamix <span>®</span>
+                </div>
+            </div>
+
             <ul class="nav-links">
                 <li><a href="#inicio">Início</a></li>
                 <li><a href="#sobre">Sobre</a></li>
@@ -337,7 +350,7 @@
             </div>
         </section>
 
-        <!-- Nossos Produtos (29 itens) -->
+        <!-- Nossos Produtos (29 itens com fotos) -->
         <section id="produtos">
             <h2 class="section-title">Nossos Produtos</h2>
             
@@ -695,13 +708,11 @@
             </div>
         </section>
 
-        <!-- Nossa História em Vídeo -->
+        <!-- Seção Vídeos (Em branco/espaço reservado conforme solicitado) -->
         <section id="videos">
             <h2 class="section-title">Nossa História em Vídeo</h2>
             <div class="video-container">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo Institucional Vidamix" allowfullscreen></iframe>
-                </div>
+                <p>📹 Espaço reservado para vídeos institucionais (Em breve).</p>
             </div>
         </section>
 
