@@ -8,11 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2d6a4f;      /* Verde das folhas */
-            --vidamix-blue: #32b5ff;       /* Azul oficial do círculo da logo */
+            --primary-color: #2d6a4f;          /* Verde das folhas */
+            --vidamix-blue: #3bc2f5;           /* Azul claro oficial e vibrante da logo */
             --dark-color: #1e293b;
             --light-color: #f8fafc;
-            --accent-color: #32b5ff;       /* Botões com o azul oficial */
         }
 
         * {
@@ -44,17 +43,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 95px;
+            height: 110px; /* Cabeçalho mais espaçoso para a logo grande */
         }
 
-        /* Logo aumentada para dar mais destaque à marca */
+        /* LOGO BEM MAIOR E LEGÍVEL */
         .logo-img {
-            height: 78px;
-            width: 78px;
+            height: 90px;
+            width: 90px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--vidamix-blue);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
         }
 
         .logo-area {
@@ -65,7 +64,7 @@
         }
 
         .logo-text {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
             color: var(--primary-color);
         }
@@ -87,16 +86,16 @@
             color: var(--vidamix-blue);
         }
 
-        /* Seção Hero com Fundo Exclusivamente Azul Oficial e mais compacta */
+        /* Seção Hero com o AZUL CLARO CLÁSSICO da Vidamix e bem compacta */
         .hero {
-            background: linear-gradient(rgba(50, 181, 255, 0.9), rgba(30, 100, 160, 0.9)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
-            min-height: 48vh; /* Altura reduzida para dar foco total à logo e produtos */
+            background: linear-gradient(rgba(59, 194, 245, 0.95), rgba(30, 150, 210, 0.9)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            min-height: 45vh;
             display: flex;
             align-items: center;
             text-align: center;
             color: white;
             padding: 30px 20px;
-            margin-top: 95px;
+            margin-top: 110px; /* Compensa o novo tamanho do cabeçalho */
         }
 
         .hero-content {
@@ -121,7 +120,7 @@
         .btn {
             display: inline-block;
             background: #ffffff;
-            color: #1e64a0; /* Texto em tom de azul escuro para contraste elegante no botão branco */
+            color: #1a7ab8;
             padding: 12px 30px;
             border-radius: 30px;
             text-decoration: none;
@@ -183,7 +182,7 @@
             font-size: 14px;
         }
 
-        /* Estilo para a Seção de Vídeos */
+        /* Seção de Vídeos */
         .video-section {
             background: #ffffff;
         }
@@ -221,18 +220,18 @@
                 font-size: 24px;
             }
             .logo-img {
-                height: 60px;
-                width: 60px;
+                height: 70px;
+                width: 70px;
             }
             .logo-text {
-                font-size: 22px;
+                font-size: 24px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Cabeçalho com Logo Maior -->
+    <!-- Cabeçalho com Logo Bem Grande e Visível -->
     <header>
         <div class="container">
             <a href="#" class="logo-area">
@@ -251,7 +250,7 @@
         </div>
     </header>
 
-    <!-- Seção Principal (Hero) com fundo azul puro e menor -->
+    <!-- Seção Principal (Hero) com Azul Claro Original -->
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Vidamix® — Produtos artesanais sem glúten e sem lactose</h1>
