@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidamix® | Inovação e Qualidade</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0f766e;
+            --secondary-color: #14b8a6;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --accent-color: #f97316;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo span {
+            font-size: 14px;
+            vertical-align: super;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(15, 118, 110, 0.85), rgba(20, 184, 166, 0.85)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            margin-top: 70px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        section {
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .about, .products, .contact {
+            background: #ffffff;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--light-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+            margin: 20px 0 10px;
+            font-size: 20px;
+        }
+
+        .product-card p {
+            padding: 0 20px;
+            margin-bottom: 20px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        footer {
+            background: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="container">
+            <a href="#" class="logo">Vidamix<span>®</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#products">Produtos</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Seção Principal (Hero) -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Bem-vindo à Vidamix®</h1>
+            <p>Soluções inovadoras e de alta qualidade desenvolvidas sob medida para elevar a sua experiência.</p>
+            <a href="#contact" class="btn">Fale Conosco</a>
+        </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="about">
+        <div class="container" style="flex-direction: column;">
+            <h2 class="section-title">Sobre a Marca</h2>
+            <p style="max-width: 800px; text-align: center; font-size: 16px; color: #475569;">
+                A <strong>Vidamix®</strong> é uma marca registrada comprometida com a excelência, inovação e entrega de valor superior aos nossos clientes. Nossa trajetória é marcada pela busca constante por qualidade, garantindo segurança e confiança em cada solução oferecida.
+            </p>
+        </div>
+    </section>
+
+    <!-- Produtos / Soluções -->
+    <section id="products" style="background: var(--light-color);">
+        <h2 class="section-title">Nossas Soluções</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Produto 1">
+                <h3>Solução Inovadora A</h3>
+                <p>Desenvolvida com tecnologia de ponta para otimizar processos e garantir máxima eficiência.</p>
+                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Saiba Mais</a>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80" alt="Produto 2">
+                <h3>Linha Premium B</h3>
+                <p>Padrão elevado de qualidade e design pensado exclusivamente nas suas necessidades.</p>
+                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Saiba Mais</a>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Produto 3">
+                <h3>Serviços Especializados</h3>
+                <p>Suporte completo e consultoria especializada para impulsionar os seus resultados.</p>
+                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Saiba Mais</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contact" style="background: #ffffff; text-align: center;">
+        <h2 class="section-title">Entre em Contato</h2>
+        <p style="margin-bottom: 20px; color: #64748b;">Tem interesse em nossos produtos ou deseja ser um parceiro da Vidamix®?</p>
+        <p style="font-size: 18px; font-weight: 600; color: var(--primary-color);">contato@vidamix.com.br</p>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2026 Vidamix®. Todos os direitos reservados. Marca registrada.</p>
+    </footer>
+
+</body>
+</html>
