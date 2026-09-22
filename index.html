@@ -12,6 +12,7 @@
             --vidamix-blue: #3bc2f5;           /* Azul claro oficial e vibrante da logo */
             --dark-color: #1e293b;
             --light-color: #f8fafc;
+            --price-color: #e63946;            /* Cor de destaque para o preço */
         }
 
         * {
@@ -43,7 +44,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 130px; /* Cabeçalho bem espaçoso para acomodar a logo grande */
+            height: 130px;
         }
 
         /* LOGO BEM GRANDE E DESTAQUE MÁXIMO */
@@ -87,7 +88,7 @@
             color: var(--vidamix-blue);
         }
 
-        /* Seção Hero com Azul Claro Clássico e muito elegante */
+        /* Seção Hero com Azul Claro Clássico */
         .hero {
             background: linear-gradient(rgba(59, 194, 245, 0.95), rgba(30, 150, 210, 0.9)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
             min-height: 45vh;
@@ -96,7 +97,7 @@
             text-align: center;
             color: white;
             padding: 30px 20px;
-            margin-top: 130px; /* Compensa exatamente a nova altura do cabeçalho */
+            margin-top: 130px;
         }
 
         .hero-content {
@@ -162,11 +163,14 @@
             text-align: center;
             padding-bottom: 25px;
             border-top: 4px solid var(--vidamix-blue);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .product-card img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
         }
 
@@ -174,13 +178,22 @@
             margin: 20px 0 10px;
             font-size: 20px;
             color: var(--primary-color);
+            padding: 0 15px;
         }
 
         .product-card p {
             padding: 0 20px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: #64748b;
             font-size: 14px;
+        }
+
+        /* Estilo do Preço */
+        .product-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--price-color);
+            margin-bottom: 20px;
         }
 
         /* Seção de Vídeos */
@@ -268,33 +281,55 @@
         <div class="container" style="flex-direction: column;">
             <h2 class="section-title">Sobre a Marca</h2>
             <p style="max-width: 800px; text-align: center; font-size: 16px; color: #475569;">
-                A <strong>Vidamix®</strong> je uma marca registrada especializada na fabricação artesanal de pães e bolos sem glúten e sem lactose. Nosso compromisso é entregar sabor, qualidade e total segurança alimentar, para que você possa saborear cada momento sem preocupações.
+                A <strong>Vidamix®</strong> é uma marca registrada especializada na fabricação artesanal de pães e bolos sem glúten e sem lactose. Nosso compromisso é entregar sabor, qualidade e total segurança alimentar, para que você possa saborear cada momento sem preocupações.
             </p>
         </div>
     </section>
 
-    <!-- Produtos -->
+    <!-- Produtos com Preços e Fotos Locais -->
     <section id="products" style="background: var(--light-color);">
         <h2 class="section-title">Nossos Produtos</h2>
         <div class="products-grid">
+            
+            <!-- Produto 1 (Substitua 'foto-pao-rustico.jpg' pelo nome real da sua foto) -->
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" alt="Pão Rústico">
-                <h3>Pão Rústico Artesanal</h3>
-                <p>Textura maciça por dentro e casquinha crocante. Totalmente livre de glúten e lactose.</p>
-                <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20Rústico%20Artesanal%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 8px 22px; font-size: 14px;">Pedir Agora</a>
+                <div>
+                    <img src="foto-pao-rustico.jpg" alt="Pão Rústico Artesanal">
+                    <h3>Pão Rústico Artesanal</h3>
+                    <p>Textura maciça por dentro e casquinha crocante. Totalmente livre de glúten e lactose.</p>
+                </div>
+                <div>
+                    <div class="product-price">R$ 25,00</div>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20Rústico%20Artesanal%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+                </div>
             </div>
+
+            <!-- Produto 2 (Substitua 'foto-pao-graos.jpg' pelo nome real da sua foto) -->
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbc04?auto=format&fit=crop&w=600&q=80" alt="Pão Integral">
-                <h3>Pão de Forma com Grãos</h3>
-                <p>Enriquecido com sementes selecionadas. Macio, nutritivo e ideal para o dia a dia.</p>
-                <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20Forma%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 8px 22px; font-size: 14px;">Pedir Agora</a>
+                <div>
+                    <img src="foto-pao-graos.jpg" alt="Pão de Forma com Grãos">
+                    <h3>Pão de Forma com Grãos</h3>
+                    <p>Enriquecido com sementes selecionadas. Macio, nutritivo e ideal para o dia a dia.</p>
+                </div>
+                <div>
+                    <div class="product-price">R$ 22,00</div>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20Forma%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+                </div>
             </div>
+
+            <!-- Produto 3 (Substitua 'foto-bolo-chocolate.jpg' pelo nome real da sua foto) -->
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" alt="Bolo de Chocolate">
-                <h3>Bolo de Chocolate Caseiro</h3>
-                <p>Massa fofinha com cacau puro, cobertura cremosa e zero lactose. Irresistível!</p>
-                <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20Chocolate%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 8px 22px; font-size: 14px;">Pedir Agora</a>
+                <div>
+                    <img src="foto-bolo-chocolate.jpg" alt="Bolo de Chocolate Caseiro">
+                    <h3>Bolo de Chocolate Caseiro</h3>
+                    <p>Massa fofinha com cacau puro, cobertura cremosa e zero lactose. Irresistível!</p>
+                </div>
+                <div>
+                    <div class="product-price">R$ 35,00</div>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20Chocolate%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+                </div>
             </div>
+
         </div>
     </section>
 
