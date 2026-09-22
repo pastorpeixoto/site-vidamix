@@ -29,7 +29,7 @@
 
         header {
             background: #ffffff;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             position: fixed;
             width: 100%;
             top: 0;
@@ -43,28 +43,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 110px; /* Cabeçalho mais espaçoso para a logo grande */
+            height: 130px; /* Cabeçalho bem espaçoso para acomodar a logo grande */
         }
 
-        /* LOGO BEM MAIOR E LEGÍVEL */
+        /* LOGO BEM GRANDE E DESTAQUE MÁXIMO */
         .logo-img {
-            height: 90px;
-            width: 90px;
+            height: 110px;
+            width: 110px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--vidamix-blue);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            border: 4px solid var(--vidamix-blue);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             text-decoration: none;
         }
 
         .logo-text {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 700;
             color: var(--primary-color);
         }
@@ -79,6 +79,7 @@
             text-decoration: none;
             color: var(--dark-color);
             font-weight: 600;
+            font-size: 16px;
             transition: color 0.3s;
         }
 
@@ -86,7 +87,7 @@
             color: var(--vidamix-blue);
         }
 
-        /* Seção Hero com o AZUL CLARO CLÁSSICO da Vidamix e bem compacta */
+        /* Seção Hero com Azul Claro Clássico e muito elegante */
         .hero {
             background: linear-gradient(rgba(59, 194, 245, 0.95), rgba(30, 150, 210, 0.9)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
             min-height: 45vh;
@@ -95,7 +96,7 @@
             text-align: center;
             color: white;
             padding: 30px 20px;
-            margin-top: 110px; /* Compensa o novo tamanho do cabeçalho */
+            margin-top: 130px; /* Compensa exatamente a nova altura do cabeçalho */
         }
 
         .hero-content {
@@ -104,14 +105,14 @@
         }
 
         .hero h1 {
-            font-size: 34px;
+            font-size: 36px;
             margin-bottom: 15px;
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .hero p {
-            font-size: 16px;
+            font-size: 18px;
             margin-bottom: 25px;
             font-weight: 300;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -220,18 +221,21 @@
                 font-size: 24px;
             }
             .logo-img {
-                height: 70px;
-                width: 70px;
+                height: 80px;
+                width: 80px;
             }
             .logo-text {
                 font-size: 24px;
+            }
+            .container {
+                height: 100px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Cabeçalho com Logo Bem Grande e Visível -->
+    <!-- Cabeçalho com Logo Bem Grande -->
     <header>
         <div class="container">
             <a href="#" class="logo-area">
@@ -250,7 +254,7 @@
         </div>
     </header>
 
-    <!-- Seção Principal (Hero) com Azul Claro Original -->
+    <!-- Seção Principal (Hero) -->
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Vidamix® — Produtos artesanais sem glúten e sem lactose</h1>
