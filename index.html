@@ -136,7 +136,7 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
@@ -160,6 +160,7 @@
         .product-card h3 {
             margin: 20px 0 10px;
             font-size: 20px;
+            color: var(--primary-color);
         }
 
         .product-card p {
@@ -227,31 +228,62 @@
     <section id="products" style="background: var(--light-color);">
         <h2 class="section-title">Nossos Produtos</h2>
         <div class="products-grid">
+            
+            <!-- Produto 1 -->
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" alt="Pães Artesanais">
-                <h3>Pães Especiais</h3>
-                <p>Pães artesanais macios e nutritivos, totalmente livres de glúten e lactose.</p>
-                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Pedir Agora</a>
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" alt="Pão Rústico Tradicional">
+                <h3>Pão Rústico Artesanal</h3>
+                <p>Textura maciça por dentro e casquinha crocante. Totalmente livre de glúten e lactose, perfeito para o seu café da manhã.</p>
+                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Encomendar</a>
             </div>
+
+            <!-- Produto 2 -->
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" alt="Bolos Artesanais">
-                <h3>Bolos Caseiros</h3>
-                <p>Bolos artesanais fofinhos e cheios de sabor, seguros para celíacos e intolerantes.</p>
-                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Pedir Agora</a>
+                <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbc04?auto=format&fit=crop&w=600&q=80" alt="Pão de Forma Integral">
+                <h3>Pão de Forma com Grãos</h3>
+                <p>Enriquecido com sementes selecionadas. Macio, nutritivo e ideal para sanduíches saudáveis no dia a dia.</p>
+                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Encomendar</a>
             </div>
+
+            <!-- Produto 3 -->
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80" alt="Encomendas Especiais">
-                <h3>Encomendas Especiais</h3>
-                <p>Atendemos encomendas para o seu dia a dia ou ocasiões especiais.</p>
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" alt="Bolo de Chocolate">
+                <h3>Bolo de Chocolate Caseiro</h3>
+                <p>Massa fofinha com cacau puro, cobertura cremosa e zero lactose. Um abraço em forma de bolo!</p>
+                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Encomendar</a>
+            </div>
+
+            <!-- Produto 4 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=600&q=80" alt="Bolo de Cenoura">
+                <h3>Bolo de Cenoura com Calda</h3>
+                <p>Clássico irresistível, fofinho e sem glúten, acompanhado de uma deliciosa calda de chocolate sem lactose.</p>
+                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Encomendar</a>
+            </div>
+
+            <!-- Produto 5 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80" alt="Bolo de Fubá">
+                <h3>Bolo de Fubá Cremoso</h3>
+                <p>Sabor autêntico de fazenda, leve e desmanchando na boca. Perfeito para acompanhar um cafezinho.</p>
+                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Encomendar</a>
+            </div>
+
+            <!-- Produto 6 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1532499017622-290678f15787?auto=format&fit=crop&w=600&q=80" alt="Kits Especiais">
+                <h3>Kits Especiais e Festas</h3>
+                <p>Combinações personalizadas de pães e bolos para comemorações, reuniões ou para manter o estoque em casa.</p>
                 <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Fale Conosco</a>
             </div>
+
         </div>
     </section>
 
     <!-- Contato -->
     <section id="contact" style="background: #ffffff; text-align: center;">
-        <h2 class="section-title">Entre em Contato</h2>
-        <p style="margin-bottom: 20px; color: #64748b;">Quer fazer uma encomenda dos nossos pães e bolos sem glúten e sem lactose?</p>
+        <h2 class="section-title">Faça a sua Encomenda</h2>
+        <p style="margin-bottom: 20px; color: #64748b;">Quer garantir seus pães e bolos artesanais sem glúten e sem lactose da Vidamix®?</p>
         <p style="font-size: 18px; font-weight: 600; color: var(--primary-color);">contato@vidamix.com.br</p>
     </section>
 
