@@ -8,12 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2d6a4f;      /* Verde principal das folhas */
-            --secondary-color: #52b788;    /* Verde claro de apoio */
-            --vidamix-blue: #40c4ff;       /* Azul oficial do círculo da logo */
+            --primary-color: #2d6a4f;      /* Verde das folhas */
+            --vidamix-blue: #32b5ff;       /* Azul oficial do círculo da logo */
             --dark-color: #1e293b;
             --light-color: #f8fafc;
-            --accent-color: #40c4ff;       /* Botões principais agora com o Azul Oficial da Vidamix® */
+            --accent-color: #32b5ff;       /* Botões com o azul oficial */
         }
 
         * {
@@ -45,16 +44,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 90px;
+            height: 95px;
         }
 
+        /* Logo aumentada para dar mais destaque à marca */
         .logo-img {
-            height: 70px;
-            width: 70px;
+            height: 78px;
+            width: 78px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid var(--vidamix-blue); /* Borda da logo com o azul oficial */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 3px solid var(--vidamix-blue);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
 
         .logo-area {
@@ -65,7 +65,7 @@
         }
 
         .logo-text {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 700;
             color: var(--primary-color);
         }
@@ -84,19 +84,19 @@
         }
 
         nav ul li a:hover {
-            color: var(--vidamix-blue); /* Passa o mouse e acende com o azul oficial */
+            color: var(--vidamix-blue);
         }
 
-        /* Seção Hero com degradê unindo o Verde das folhas e o Azul oficial */
+        /* Seção Hero com Fundo Exclusivamente Azul Oficial e mais compacta */
         .hero {
-            background: linear-gradient(rgba(45, 106, 79, 0.9), rgba(64, 196, 255, 0.75)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
-            min-height: 60vh;
+            background: linear-gradient(rgba(50, 181, 255, 0.9), rgba(30, 100, 160, 0.9)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            min-height: 48vh; /* Altura reduzida para dar foco total à logo e produtos */
             display: flex;
             align-items: center;
             text-align: center;
             color: white;
-            padding: 40px 20px;
-            margin-top: 90px;
+            padding: 30px 20px;
+            margin-top: 95px;
         }
 
         .hero-content {
@@ -105,7 +105,7 @@
         }
 
         .hero h1 {
-            font-size: 36px;
+            font-size: 34px;
             margin-bottom: 15px;
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
@@ -120,13 +120,13 @@
 
         .btn {
             display: inline-block;
-            background: var(--accent-color);
-            color: #ffffff; /* Texto branco bem destacado no azul oficial */
+            background: #ffffff;
+            color: #1e64a0; /* Texto em tom de azul escuro para contraste elegante no botão branco */
             padding: 12px 30px;
-            border-radius: 30px; /* Botão levemente arredondado e moderno */
+            border-radius: 30px;
             text-decoration: none;
             font-weight: 700;
-            box-shadow: 0 4px 10px rgba(64, 196, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             transition: transform 0.2s, opacity 0.3s;
         }
 
@@ -161,7 +161,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             text-align: center;
             padding-bottom: 25px;
-            border-top: 4px solid var(--vidamix-blue); /* Detalhe superior em azul oficial em cada card */
+            border-top: 4px solid var(--vidamix-blue);
         }
 
         .product-card img {
@@ -210,7 +210,7 @@
             text-align: center;
             padding: 40px 20px;
             font-size: 14px;
-            border-top: 4px solid var(--primary-color);
+            border-top: 4px solid var(--vidamix-blue);
         }
 
         @media (max-width: 768px) {
@@ -218,21 +218,21 @@
                 display: none;
             }
             .hero h1 {
-                font-size: 26px;
+                font-size: 24px;
             }
             .logo-img {
-                height: 55px;
-                width: 55px;
+                height: 60px;
+                width: 60px;
             }
             .logo-text {
-                font-size: 20px;
+                font-size: 22px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Cabeçalho com a Logo e Azul Oficial -->
+    <!-- Cabeçalho com Logo Maior -->
     <header>
         <div class="container">
             <a href="#" class="logo-area">
@@ -251,7 +251,7 @@
         </div>
     </header>
 
-    <!-- Seção Principal (Hero) com Verde + Azul Oficial -->
+    <!-- Seção Principal (Hero) com fundo azul puro e menor -->
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Vidamix® — Produtos artesanais sem glúten e sem lactose</h1>
@@ -278,19 +278,19 @@
                 <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" alt="Pão Rústico">
                 <h3>Pão Rústico Artesanal</h3>
                 <p>Textura maciça por dentro e casquinha crocante. Totalmente livre de glúten e lactose.</p>
-                <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20Rústico%20Artesanal%20da%20Vidamix®." target="_blank" class="btn" style="padding: 8px 22px; font-size: 14px;">Pedir Agora</a>
+                <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20Rústico%20Artesanal%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 8px 22px; font-size: 14px;">Pedir Agora</a>
             </div>
             <div class="product-card">
                 <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbc04?auto=format&fit=crop&w=600&q=80" alt="Pão Integral">
                 <h3>Pão de Forma com Grãos</h3>
                 <p>Enriquecido com sementes selecionadas. Macio, nutritivo e ideal para o dia a dia.</p>
-                <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20Forma%20da%20Vidamix®." target="_blank" class="btn" style="padding: 8px 22px; font-size: 14px;">Pedir Agora</a>
+                <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20Forma%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 8px 22px; font-size: 14px;">Pedir Agora</a>
             </div>
             <div class="product-card">
                 <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" alt="Bolo de Chocolate">
                 <h3>Bolo de Chocolate Caseiro</h3>
                 <p>Massa fofinha com cacau puro, cobertura cremosa e zero lactose. Irresistível!</p>
-                <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20Chocolate%20da%20Vidamix®." target="_blank" class="btn" style="padding: 8px 22px; font-size: 14px;">Pedir Agora</a>
+                <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20Chocolate%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 8px 22px; font-size: 14px;">Pedir Agora</a>
             </div>
         </div>
     </section>
@@ -315,7 +315,7 @@
         <p style="font-size: 20px; font-weight: 700; color: var(--primary-color); margin-bottom: 20px;">
             Contato: 📱 (44) 99854-6285
         </p>
-        <a href="https://wa.me/5544998546285?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20falar%20com%20a%20Vidamix®." target="_blank" class="btn" style="background-color: #25d366; font-size: 16px;">Falar pelo WhatsApp</a>
+        <a href="https://wa.me/5544998546285?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20falar%20com%20a%20Vidamix®." target="_blank" class="btn" style="background-color: #25d366; color: white; font-size: 16px;">Falar pelo WhatsApp</a>
     </section>
 
     <!-- Rodapé -->
