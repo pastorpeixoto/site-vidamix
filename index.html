@@ -62,7 +62,7 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 25px;
         }
 
         nav ul li a {
@@ -130,10 +130,6 @@
             color: var(--primary-color);
         }
 
-        .about, .products, .contact {
-            background: #ffffff;
-        }
-
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -143,7 +139,7 @@
         }
 
         .product-card {
-            background: var(--light-color);
+            background: #ffffff;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
@@ -170,11 +166,32 @@
             font-size: 14px;
         }
 
+        /* Estilo para a Seção de Vídeos */
+        .video-section {
+            background: #ffffff;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .video-box {
+            position: relative;
+            padding-bottom: 56.25%; /* Proporção 16:9 para vídeos */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: #000;
+        }
+
         footer {
             background: var(--dark-color);
             color: white;
             text-align: center;
-            padding: 30px 20px;
+            padding: 40px 20px;
             font-size: 14px;
         }
 
@@ -199,6 +216,7 @@
                     <li><a href="#home">Início</a></li>
                     <li><a href="#about">Sobre</a></li>
                     <li><a href="#products">Produtos</a></li>
+                    <li><a href="#videos">Vídeos</a></li>
                     <li><a href="#contact">Contato</a></li>
                 </ul>
             </nav>
@@ -215,7 +233,7 @@
     </section>
 
     <!-- Sobre -->
-    <section id="about">
+    <section id="about" style="background: #ffffff;">
         <div class="container" style="flex-direction: column;">
             <h2 class="section-title">Sobre a Marca</h2>
             <p style="max-width: 800px; text-align: center; font-size: 16px; color: #475569;">
@@ -228,68 +246,51 @@
     <section id="products" style="background: var(--light-color);">
         <h2 class="section-title">Nossos Produtos</h2>
         <div class="products-grid">
-            
-            <!-- Produto 1 -->
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" alt="Pão Rústico Tradicional">
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" alt="Pão Rústico">
                 <h3>Pão Rústico Artesanal</h3>
-                <p>Textura maciça por dentro e casquinha crocante. Totalmente livre de glúten e lactose, perfeito para o seu café da manhã.</p>
-                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Encomendar</a>
+                <p>Textura maciça por dentro e casquinha crocante. Totalmente livre de glúten e lactose.</p>
+                <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20Rústico%20Artesanal%20da%20Vidamix®." target="_blank" class="btn" style="padding: 8px 20px; font-size: 14px;">Pedir Agora</a>
             </div>
-
-            <!-- Produto 2 -->
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbc04?auto=format&fit=crop&w=600&q=80" alt="Pão de Forma Integral">
+                <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbc04?auto=format&fit=crop&w=600&q=80" alt="Pão Integral">
                 <h3>Pão de Forma com Grãos</h3>
-                <p>Enriquecido com sementes selecionadas. Macio, nutritivo e ideal para sanduíches saudáveis no dia a dia.</p>
-                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Encomendar</a>
+                <p>Enriquecido com sementes selecionadas. Macio, nutritivo e ideal para o dia a dia.</p>
+                <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20Forma%20da%20Vidamix®." target="_blank" class="btn" style="padding: 8px 20px; font-size: 14px;">Pedir Agora</a>
             </div>
-
-            <!-- Produto 3 -->
             <div class="product-card">
                 <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" alt="Bolo de Chocolate">
                 <h3>Bolo de Chocolate Caseiro</h3>
-                <p>Massa fofinha com cacau puro, cobertura cremosa e zero lactose. Um abraço em forma de bolo!</p>
-                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Encomendar</a>
+                <p>Massa fofinha com cacau puro, cobertura cremosa e zero lactose. Irresistível!</p>
+                <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20Chocolate%20da%20Vidamix®." target="_blank" class="btn" style="padding: 8px 20px; font-size: 14px;">Pedir Agora</a>
             </div>
+        </div>
+    </section>
 
-            <!-- Produto 4 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=600&q=80" alt="Bolo de Cenoura">
-                <h3>Bolo de Cenoura com Calda</h3>
-                <p>Clássico irresistível, fofinho e sem glúten, acompanhado de uma deliciosa calda de chocolate sem lactose.</p>
-                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Encomendar</a>
+    <!-- Seção de Vídeos sobre a Marca -->
+    <section id="videos" class="video-section">
+        <h2 class="section-title">Nossa História em Vídeo</h2>
+        <div class="video-container">
+            <p style="margin-bottom: 25px; color: #64748b;">Assista e conheça mais sobre o nosso processo de fabricação artesanal e o cuidado com a sua saúde.</p>
+            <div class="video-box">
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #fff; font-size: 16px;">
+                    [ Vídeo institucional da Vidamix® em breve ]
+                </div>
             </div>
-
-            <!-- Produto 5 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80" alt="Bolo de Fubá">
-                <h3>Bolo de Fubá Cremoso</h3>
-                <p>Sabor autêntico de fazenda, leve e desmanchando na boca. Perfeito para acompanhar um cafezinho.</p>
-                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Encomendar</a>
-            </div>
-
-            <!-- Produto 6 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1532499017622-290678f15787?auto=format&fit=crop&w=600&q=80" alt="Kits Especiais">
-                <h3>Kits Especiais e Festas</h3>
-                <p>Combinações personalizadas de pães e bolos para comemorações, reuniões ou para manter o estoque em casa.</p>
-                <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Fale Conosco</a>
-            </div>
-
         </div>
     </section>
 
     <!-- Contato -->
-    <section id="contact" style="background: #ffffff; text-align: center;">
-        <h2 class="section-title">Faça a sua Encomenda</h2>
-        <p style="margin-bottom: 20px; color: #64748b;">Quer garantir seus pães e bolos artesanais sem glúten e sem lactose da Vidamix®?</p>
-        <p style="font-size: 18px; font-weight: 600; color: var(--primary-color);">contato@vidamix.com.br</p>
+    <section id="contact" style="background: var(--light-color); text-align: center;">
+        <h2 class="section-title">Faça o seu Pedido</h2>
+        <p style="margin-bottom: 20px; color: #64748b;">Para encomendas, dúvidas ou para acessar nosso cardápio completo, entre em contato direto pelo nosso WhatsApp:</p>
+        <a href="https://wa.me/5544998546285?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20falar%20com%20a%20Vidamix®." target="_blank" class="btn" style="background-color: #25d366; margin-top: 10px; font-size: 16px;">Falar pelo WhatsApp (44) 99854-6285</a>
     </section>
 
     <!-- Rodapé -->
     <footer>
         <p>&copy; 2026 Vidamix®. Todos os direitos reservados. Marca registrada.</p>
+        <p style="margin-top: 10px; color: #94a3b8; font-size: 12px;">Produtos artesanais sem glúten e sem lactose — Contato: (44) 99854-6285</p>
     </footer>
 
 </body>
