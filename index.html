@@ -3,700 +3,516 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vidamix® | Produtos Artesanais Sem Glúten e Sem Lactose</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Vidamix® - Catálogo Artesanal</title>
     <style>
         :root {
-            --primary-color: #2d6a4f;          /* Verde das folhas */
-            --vidamix-blue: #3bc2f5;           /* Azul claro oficial da logo */
-            --dark-color: #1e293b;
-            --light-color: #f8fafc;
-            --price-color: #e63946;            /* Cor de destaque para o preço */
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            --primary-color: #8D5B4C;
+            --secondary-color: #D4A373;
+            --background-color: #F9F6F0;
+            --text-color: #333333;
+            --card-bg: #FFFFFF;
+            --accent-green: #588157;
         }
 
         body {
-            color: var(--dark-color);
-            background-color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
             line-height: 1.6;
         }
 
         header {
-            background: #ffffff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
 
         .container {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 130px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
-        /* LOGO BEM GRANDE E DESTAQUE MÁXIMO */
-        .logo-img {
-            height: 110px;
-            width: 110px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--vidamix-blue);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            text-decoration: none;
-        }
-
-        .logo-text {
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--dark-color);
-            font-weight: 600;
-            font-size: 16px;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: var(--vidamix-blue);
-        }
-
-        /* Seção Hero com Azul Claro Clássico */
-        .hero {
-            background: linear-gradient(rgba(59, 194, 245, 0.95), rgba(30, 150, 210, 0.9)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
-            min-height: 45vh;
-            display: flex;
-            align-items: center;
+        .rules-banner {
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
             text-align: center;
-            color: white;
-            padding: 30px 20px;
-            margin-top: 130px;
+            font-weight: 500;
         }
 
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 36px;
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .hero p {
-            font-size: 18px;
-            margin-bottom: 25px;
-            font-weight: 300;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
-
-        .btn {
-            display: inline-block;
-            background: #ffffff;
-            color: #1a7ab8;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 700;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            transition: transform 0.2s, opacity 0.3s;
-        }
-
-        .btn:hover {
-            opacity: 0.95;
-            transform: translateY(-2px);
-        }
-
-        section {
-            padding: 70px 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 40px;
-            color: var(--primary-color);
-        }
-
-        .products-grid {
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+            gap: 1.5rem;
         }
 
-        .product-card {
-            background: #ffffff;
-            border-radius: 12px;
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            text-align: center;
-            padding-bottom: 25px;
-            border-top: 4px solid var(--vidamix-blue);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            transition: transform 0.2s ease;
         }
 
-        .product-card img {
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-img {
             width: 100%;
             height: 200px;
             object-fit: cover;
+            background-color: #eaeaea;
         }
 
-        .product-card h3 {
-            margin: 20px 0 10px;
-            font-size: 20px;
+        .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin: 0 0 0.5rem;
             color: var(--primary-color);
-            padding: 0 15px;
         }
 
-        .product-card p {
-            padding: 0 20px;
-            margin-bottom: 15px;
-            color: #64748b;
-            font-size: 14px;
+        .card-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+            flex-grow: 1;
         }
 
-        .product-price {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--price-color);
-            margin-bottom: 20px;
+        .card-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
         }
 
-        /* Seção de Vídeos */
-        .video-section {
-            background: #ffffff;
+        .badge {
+            display: inline-block;
+            background-color: #e9edc9;
+            color: #386641;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            align-self: flex-start;
+            font-weight: 600;
         }
 
-        .video-container {
-            max-width: 800px;
-            margin: 0 auto;
+        .whatsapp-btn {
+            display: block;
+            background-color: #25D366;
+            color: white;
             text-align: center;
+            padding: 0.75rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.2s;
         }
 
-        .video-box {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            background: #000;
+        .whatsapp-btn:hover {
+            background-color: #20ba5a;
         }
 
         footer {
-            background: var(--dark-color);
+            background-color: var(--primary-color);
             color: white;
             text-align: center;
-            padding: 40px 20px;
-            font-size: 14px;
-            border-top: 4px solid var(--vidamix-blue);
-        }
-
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-            .hero h1 {
-                font-size: 24px;
-            }
-            .logo-img {
-                height: 80px;
-                width: 80px;
-            }
-            .logo-text {
-                font-size: 24px;
-            }
-            .container {
-                height: 100px;
-            }
+            padding: 1.5rem;
+            margin-top: 3rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- Cabeçalho -->
     <header>
-        <div class="container">
-            <a href="#" class="logo-area">
-                <img src="logo-vidamix.jpg" alt="Logo Vidamix®" class="logo-img">
-                <span class="logo-text">Vidamix®</span>
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="#home">Início</a></li>
-                    <li><a href="#about">Sobre</a></li>
-                    <li><a href="#products">Produtos</a></li>
-                    <li><a href="#videos">Vídeos</a></li>
-                    <li><a href="#contact">Contato</a></li>
-                </ul>
-            </nav>
-        </div>
+        <h1>Vidamix®</h1>
+        <p>Artesanais sem glúten e sem lactose — Sabor de infância e memória afetiva</p>
     </header>
 
-    <!-- Hero -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Vidamix® — Produtos artesanais sem glúten e sem lactose</h1>
-            <p>Fabricação própria de pães e bolos feitos com todo o cuidado, carinho e segurança para a sua saúde.</p>
-            <a href="#products" class="btn">Conheça Nossos Produtos</a>
+    <div class="container">
+        <div class="rules-banner">
+            ✨ <strong>Regras de Pedido:</strong> Produtos fracionados disponíveis nos tamanhos 250g, 500g, 750g ou 1kg. Salgados por unidade possuem pedido mínimo de 6 unidades.
         </div>
-    </section>
 
-    <!-- Sobre -->
-    <section id="about" style="background: #ffffff;">
-        <div class="container" style="flex-direction: column;">
-            <h2 class="section-title">Sobre a Marca</h2>
-            <p style="max-width: 800px; text-align: center; font-size: 16px; color: #475569;">
-                A <strong>Vidamix®</strong> é uma marca registrada especializada na fabricação artesanal de pães e bolos sem glúten e sem lactose. Nosso compromisso é entregar sabor, qualidade e total segurança alimentar, para que você possa saborear cada momento sem preocupações.
-            </p>
-        </div>
-    </section>
-
-    <!-- Catálogo com os 29 Produtos em Ordem Numérica (1 a 29) -->
-    <section id="products" style="background: var(--light-color);">
-        <h2 class="section-title">Nosso Catálogo Completo</h2>
-        <div class="products-grid">
-            
-            <!-- PRODUTO 1 -->
-            <div class="product-card">
-                <div>
-                    <img src="1.jpg" alt="Pão integral tradicional">
-                    <h3>Pão integral tradicional</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20integral%20tradicional%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+        <div class="grid">
+            <!-- Foto 1 -->
+            <div class="card">
+                <img src="1.jpg" alt="Cesta Amor que Nutre" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Cesta Amor que Nutre</h3>
+                    <p class="card-desc">Seleção especial de produtos artesanais.</p>
+                    <div class="card-price">R$ 120,00</div>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20a%20Cesta%20Amor%20que%20Nutre%20(R$%20120,00)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 2 -->
-            <div class="product-card">
-                <div>
-                    <img src="2.jpg" alt="Pão de centeio">
-                    <h3>Pão de centeio</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20de%20centeio%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 3 -->
-            <div class="product-card">
-                <div>
-                    <img src="3.jpg" alt="Pão rústico de fermentação natural">
-                    <h3>Pão rústico de fermentação natural</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20rústico%20de%20fermentação%20natural%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 2 -->
+            <div class="card">
+                <img src="2.jpg" alt="Pão australiano" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão australiano</h3>
+                    <p class="card-desc">Massa artesanal macia e saborosa.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20australiano%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 4 -->
-            <div class="product-card">
-                <div>
-                    <img src="4.jpg" alt="Pão de nozes e castanhas">
-                    <h3>Pão de nozes e castanhas</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20de%20nozes%20e%20castanhas%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 5 -->
-            <div class="product-card">
-                <div>
-                    <img src="5.jpg" alt="Pão caseiro da vovó">
-                    <h3>Pão caseiro da vovó</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20caseiro%20da%20vovó%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 3 -->
+            <div class="card">
+                <img src="3.jpg" alt="Pão low carb" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão low carb</h3>
+                    <p class="card-desc">Opção saudável e nutritiva.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20low%20carb%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 6 -->
-            <div class="product-card">
-                <div>
-                    <img src="6.jpg" alt="Bolo simples de fubá">
-                    <h3>Bolo simples de fubá</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Bolo%20simples%20de%20fubá%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 7 -->
-            <div class="product-card">
-                <div>
-                    <img src="7.jpg" alt="Bolo de coco gelado">
-                    <h3>Bolo de coco gelado</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Bolo%20de%20coco%20gelado%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 4 -->
+            <div class="card">
+                <img src="4.jpg" alt="Pão de sementes integral" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão de sementes integral</h3>
+                    <p class="card-desc">Rico em fibras e sementes selecionadas.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20sementes%20integral%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 8 -->
-            <div class="product-card">
-                <div>
-                    <img src="8.jpg" alt="Bolo formigueiro">
-                    <h3>Bolo formigueiro</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Bolo%20formigueiro%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 9 -->
-            <div class="product-card">
-                <div>
-                    <img src="9.jpg" alt="Bolo de maracujá">
-                    <h3>Bolo de maracujá</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Bolo%20de%20maracujá%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 5 -->
+            <div class="card">
+                <img src="5.jpg" alt="Pão italiano" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão italiano</h3>
+                    <p class="card-desc">Casca crocante e miolo macio.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20italiano%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 10 -->
-            <div class="product-card">
-                <div>
-                    <img src="10.jpg" alt="Bolo de banana integral">
-                    <h3>Bolo de banana integral</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Bolo%20de%20banana%20integral%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 11 -->
-            <div class="product-card">
-                <div>
-                    <img src="11.jpg" alt="Cuca alemã tradicional">
-                    <h3>Cuca alemã tradicional</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Cuca%20alemã%20tradicional%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 6 -->
+            <div class="card">
+                <img src="6.jpg" alt="Bolinho frito da vovó" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Bolinho frito da vovó</h3>
+                    <p class="card-desc">Sabor de infância, memória afetiva, sequinho e saboroso.</p>
+                    <div class="card-price">R$ 80,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolinho%20frito%20da%20vovó%20(R$%2080,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 12 -->
-            <div class="product-card">
-                <div>
-                    <img src="12.jpg" alt="Broa de milho caipira">
-                    <h3>Broa de milho caipira</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Broa%20de%20milho%20caipira%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 13 -->
-            <div class="product-card">
-                <div>
-                    <img src="13.jpg" alt="Rosca doce caseira">
-                    <h3>Rosca doce caseira</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Rosca%20doce%20caseira%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 7 -->
+            <div class="card">
+                <img src="7.jpg" alt="Pão de hambúrguer" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão de hambúrguer</h3>
+                    <p class="card-desc">Massa leve, fofinha, com gergelim, ideal para lanches saborosos e nutritivos.</p>
+                    <div class="card-price">R$ 80,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20hambúrguer%20(R$%2080,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 14 -->
-            <div class="product-card">
-                <div>
-                    <img src="14.jpg" alt="Pão de leite macio">
-                    <h3>Pão de leite macio</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20de%20leite%20macio%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 15 -->
-            <div class="product-card">
-                <div>
-                    <img src="15.jpg" alt="Pão tipo bisnaguinha">
-                    <h3>Pão tipo bisnaguinha</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20tipo%20bisnaguinha%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 8 -->
+            <div class="card">
+                <img src="8.jpg" alt="Pãozinho recheado" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pãozinho recheado</h3>
+                    <p class="card-desc">Recheio saboroso, delicioso e equilibrado, de frango, temperado artesanalmente.</p>
+                    <div class="card-price">R$ 8,00 un.</div>
+                    <span class="badge">Mínimo: 6 unidades (R$ 48,00)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pãozinho%20recheado%20(Mínimo%206%20unidades)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 16 -->
-            <div class="product-card">
-                <div>
-                    <img src="16.jpg" alt="Pão de batata doce">
-                    <h3>Pão de batata doce</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20de%20batata%20doce%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 17 -->
-            <div class="product-card">
-                <div>
-                    <img src="17.jpg" alt="Bolo de laranja">
-                    <h3>Bolo de laranja</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Bolo%20de%20laranja%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 9 -->
+            <div class="card">
+                <img src="9.jpg" alt="Esfiha de carne ou frango" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Esfiha de carne ou frango</h3>
+                    <p class="card-desc">Massa artesanal, macia, com recheio temperado artesanalmente, com gergelim.</p>
+                    <div class="card-price">R$ 8,00 un.</div>
+                    <span class="badge">Mínimo: 6 unidades (R$ 48,00)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20a%20Esfiha%20de%20carne%20ou%20frango%20(Mínimo%206%20unidades)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 18 -->
-            <div class="product-card">
-                <div>
-                    <img src="18.jpg" alt="Pão de sementes">
-                    <h3>Pão de sementes</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20de%20sementes%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 19 -->
-            <div class="product-card">
-                <div>
-                    <img src="19.jpg" alt="Pão de milho">
-                    <h3>Pão de milho</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20de%20milho%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 10 -->
+            <div class="card">
+                <img src="10.jpg" alt="Bolo de banana" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Bolo de banana</h3>
+                    <p class="card-desc">Bolo artesanal com sabor caseiro inconfundível.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20banana%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 20 -->
-            <div class="product-card">
-                <div>
-                    <img src="20.jpg" alt="Pão de batata doce e bisnaguinha">
-                    <h3>Pão de batata doce e bisnaguinha</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20de%20batata%20doce%20e%20bisnaguinha%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 21 -->
-            <div class="product-card">
-                <div>
-                    <img src="21.jpg" alt="Pão de forma branco">
-                    <h3>Pão de forma branco</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20de%20forma%20branco%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 11 -->
+            <div class="card">
+                <img src="11.jpg" alt="Bolo de café" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Bolo de café</h3>
+                    <p class="card-desc">Aromatizado com toque especial de café.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20café%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 22 -->
-            <div class="product-card">
-                <div>
-                    <img src="22.jpg" alt="Pão recheado">
-                    <h3>Pão recheado</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 130,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Pão%20recheado%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 23 -->
-            <div class="product-card">
-                <div>
-                    <img src="23.jpg" alt="Bolo de amendoim">
-                    <h3>Bolo de amendoim</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 130,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Bolo%20de%20amendoim%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 12 -->
+            <div class="card">
+                <img src="12.jpg" alt="Bolo mesclado simples" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Bolo mesclado simples</h3>
+                    <p class="card-desc">A combinação perfeita de massas tradicionais.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20mesclado%20simples%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 24 -->
-            <div class="product-card">
-                <div>
-                    <img src="24.jpg" alt="Bolo de cacau">
-                    <h3>Bolo de cacau</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 85,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Bolo%20de%20cacau%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 25 -->
-            <div class="product-card">
-                <div>
-                    <img src="25.jpg" alt="Empadão de frango">
-                    <h3>Empadão de frango</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 95,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Empadão%20de%20frango%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 13 -->
+            <div class="card">
+                <img src="13.jpg" alt="Pão de lanche" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão de lanche</h3>
+                    <p class="card-desc">Ideal para o seu lanche diário com leveza e sabor.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20lanche%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 26 -->
-            <div class="product-card">
-                <div>
-                    <img src="26.jpg" alt="Bolo tipo charge">
-                    <h3>Bolo tipo charge</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 80,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Bolo%20tipo%20charge%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 27 -->
-            <div class="product-card">
-                <div>
-                    <img src="27.jpg" alt="Bolo de cenoura">
-                    <h3>Bolo de cenoura</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 80,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Bolo%20de%20cenoura%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 14 -->
+            <div class="card">
+                <img src="14.jpg" alt="Pão multigrãos" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão multigrãos</h3>
+                    <p class="card-desc">Composto por uma seleção especial de grãos.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20multigrãos%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 28 -->
-            <div class="product-card">
-                <div>
-                    <img src="28.jpg" alt="Bolo de limão">
-                    <h3>Bolo de limão</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 75,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Bolo%20de%20limão%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
-                </div>
-            </div>
-
-            <!-- PRODUTO 29 -->
-            <div class="product-card">
-                <div>
-                    <img src="29.jpg" alt="Bolo mesclado com cobertura de brigadeiro">
-                    <h3>Bolo mesclado com cobertura de brigadeiro</h3>
-                    <p>Produto artesanal fracionado (250g, 500g, 750g ou 1kg), sem glúten e sem lactose.</p>
-                </div>
-                <div>
-                    <div class="product-price">R$ 85,00 <span style="font-size: 14px; color: #64748b; font-weight: normal;">/kg</span></div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20produto%20Bolo%20mesclado%20com%20cobertura%20de%20brigadeiro%20da%20Vidamix®." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: white; padding: 10px 24px; font-size: 14px;">Pedir Agora</a>
+            <!-- Foto 15 -->
+            <div class="card">
+                <img src="15.jpg" alt="Pão tipo bisnaguinha" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão tipo bisnaguinha</h3>
+                    <p class="card-desc">Macio e adocicado na medida certa.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20tipo%20bisnaguinha%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
 
-        </div>
-    </section>
+            <!-- Foto 16 -->
+            <div class="card">
+                <img src="16.jpg" alt="Pão de batata-doce" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão de batata-doce</h3>
+                    <p class="card-desc">Nutritivo, saboroso e com textura incomparável.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20batata-doce%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
 
-    <!-- Vídeos -->
-    <section id="videos" class="video-section">
-        <h2 class="section-title">Nossa História em Vídeo</h2>
-        <div class="video-container">
-            <p style="margin-bottom: 25px; color: #64748b;">Assista e conheça mais sobre o nosso processo de fabricação artesanal e o cuidado com a sua saúde.</p>
-            <div class="video-box">
-                <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #fff; font-size: 16px;">
-                    [ Vídeo institucional da Vidamix® em breve ]
+            <!-- Foto 17 -->
+            <div class="card">
+                <img src="17.jpg" alt="Bolo de laranja" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Bolo de laranja</h3>
+                    <p class="card-desc">Fresquinho com toque cítrico natural.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20laranja%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Foto 18 -->
+            <div class="card">
+                <img src="18.jpg" alt="Pão de sementes" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão de sementes</h3>
+                    <p class="card-desc">Artesanal recheado com sementes nutritivas.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20sementes%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Foto 19 -->
+            <div class="card">
+                <img src="19.jpg" alt="Pão de milho" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão de milho</h3>
+                    <p class="card-desc">Textura rústica e sabor caseiro inconfundível.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20milho%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Foto 20 -->
+            <div class="card">
+                <img src="20.jpg" alt="Pão de batata-doce e bisnaguinha" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão de batata-doce e bisnaguinha</h3>
+                    <p class="card-desc">Combinação especial e aconchegante.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20batata-doce%20e%20bisnaguinha%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Foto 21 -->
+            <div class="card">
+                <img src="21.jpg" alt="Pão de forma branco" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão de forma branco</h3>
+                    <p class="card-desc">Perfeito para o dia a dia, fofinho e sem glúten/lactose.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20forma%20branco%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Foto 22 -->
+            <div class="card">
+                <img src="22.jpg" alt="Pão recheado" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Pão recheado</h3>
+                    <p class="card-desc">Especialidade artesanal com recheio caprichado.</p>
+                    <div class="card-price">R$ 130,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20recheado%20(R$%20130,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Foto 23 -->
+            <div class="card">
+                <img src="23.jpg" alt="Bolo de amendoim" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Bolo de amendoim</h3>
+                    <p class="card-desc">Sabor marcante e textura artesanal exclusiva.</p>
+                    <div class="card-price">R$ 130,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20amendoim%20(R$%20130,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Foto 24 -->
+            <div class="card">
+                <img src="24.jpg" alt="Bolo de cacau" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Bolo de cacau</h3>
+                    <p class="card-desc">Intenso, aromático e com cacau de excelente qualidade.</p>
+                    <div class="card-price">R$ 85,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20cacau%20(R$%2085,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Foto 25 -->
+            <div class="card">
+                <img src="25.jpg" alt="Empadão de frango" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Empadão de frango</h3>
+                    <p class="card-desc">Massa que derrete na boca com recheio suculento.</p>
+                    <div class="card-price">R$ 95,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Empadão%20de%20frango%20(R$%2095,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Foto 26 -->
+            <div class="card">
+                <img src="26.jpg" alt="Bolo tipo charge" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Bolo tipo charge</h3>
+                    <p class="card-desc">Inspirado nos sabores clássicos e afetivos.</p>
+                    <div class="card-price">R$ 80,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20tipo%20charge%20(R$%2080,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Foto 27 -->
+            <div class="card">
+                <img src="27.jpg" alt="Bolo de cenoura" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Bolo de cenoura</h3>
+                    <p class="card-desc">Fofinho, tradicional e com sabor inconfundível.</p>
+                    <div class="card-price">R$ 80,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20cenoura%20(R$%2080,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Foto 28 -->
+            <div class="card">
+                <img src="28.jpg" alt="Bolo de limão" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Bolo de limão</h3>
+                    <p class="card-desc">Toque refrescante e levemente ácido na medida certa.</p>
+                    <div class="card-price">R$ 75,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20limão%20(R$%2075,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Foto 29 -->
+            <div class="card">
+                <img src="29.jpg" alt="Bolo mesclado com cobertura de brigadeiro" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Bolo mesclado com cobertura de brigadeiro</h3>
+                    <p class="card-desc">Deliciosa combinação com cobertura cremosa especial.</p>
+                    <div class="card-price">R$ 85,00 /kg</div>
+                    <span class="badge">Fracionado (250g, 500g, 750g, 1kg)</span>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20mesclado%20com%20cobertura%20de%20brigadeiro%20(R$%2085,00/kg)." class="whatsapp-btn" target="_blank">Pedir pelo WhatsApp</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Contato -->
-    <section id="contact" style="background: var(--light-color); text-align: center;">
-        <h2 class="section-title">Faça o seu Pedido</h2>
-        <p style="margin-bottom: 15px; color: #64748b;">Para encomendas, dúvidas ou para acessar nosso cardápio completo, fale conosco:</p>
-        <p style="font-size: 20px; font-weight: 700; color: var(--primary-color); margin-bottom: 20px;">
-            Contato: 📱 (44) 99854-6285
-        </p>
-        <a href="https://wa.me/5544998546285?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20falar%20com%20a%20Vidamix®." target="_blank" class="btn" style="background-color: #25d366; color: white; font-size: 16px;">Falar pelo WhatsApp</a>
-    </section>
-
-    <!-- Rodapé -->
     <footer>
-        <p>&copy; 2026 Vidamix®. Todos os direitos reservados. Marca registrada.</p>
-        <p style="margin-top: 10px; color: #94a3b8; font-size: 12px;">Produtos artesanais sem glúten e sem lactose — Contato: 📱 (44) 99854-6285</p>
+        <p>&copy; 2026 Vidamix® — Todos os direitos reservados. Fale conosco pelo WhatsApp: (44) 99854-6285</p>
     </footer>
 
 </body>
