@@ -1178,5 +1178,150 @@
             window.open(urlWhatsApp, '_blank');
         }
     </script>
+<!-- Lógica do Carrinho e Cálculos -->
+    <script>
+        let carrinho = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.product-card[data-tipo]').forEach(card => {
+                const input = card.querySelector('.input-qtd');
+                if(input) {
+                    const nome = card.querySelector('h3').textContent;
+                    atualizarValor(input, nome);
+                }
+            });
+        });
+
+        function atualizarValor(input, nomeProduto) {
+            const card = input.closest('.product-card');
+            const tipo = card.dataset.tipo;
+            const precoBase = parseFloat(card.dataset.precoBase);
+            let quantidade = parseFloat(input.value) || 0;
+
+            if (tipo === 'peso' && quantidade < 0.25) {
+                quantidade = 0.25;
+                input.value = 0.25;
+            } else if (tipo === 'unidade' && quantidade < 6) {
+                quantidade = 6;
+                input.value = 6;
+            }
+
+            const total = precoBase * quantidade;
+            const precoFormatado = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            
+            const displayPreco = card.querySelector('.display-preco');
+            if(displayPreco) {
+                displayPreco.textContent = precoFormatado;
+            }
+        }
+
+        function toggleCart(event) {
+            if(event) event.preventDefault();
+            const overlay = document.getElementById('cartOverlay');
+            overlay.classList.toggle('active');
+        }
+
+        function adicionarAoCarrinho(button, nomeProduto, precoBase) {
+            const card = button.closest('.product-card');
+            const tipo = card.dataset.tipo;
+            let quantidade = 1;
+            let descricaoQtd = "";
+
+            if (tipo === 'peso' || tipo === 'unidade') {
+                const input = card.querySelector('.input-qtd');
+                if (input) {
+                    quantidade = parseFloat(input.value) || (tipo === 'peso' ? 1 : 6);
+                }
+                
+                if (tipo === 'peso' && quantidade < 0.25) quantidade = 0.25;
+                if (tipo === 'unidade' && quantidade < 6) quantidade = 6;
+
+                descricaoQtd = tipo === 'peso' ? ${quantidade}kg : ${quantidade} un.;
+            } else {
+                descricaoQtd = "1 un.";
+            }
+
+            const precoTotalItem = precoBase * quantidade;
+
+            // Adiciona ou atualiza no array do carrinho
+            const itemExistente = carrinho.find(item => item.nome === nomeProduto);
+            if (itemExistente) {
+                itemExistente.quantidade = quantidade;
+                itemExistente.descricaoQtd = descricaoQtd;
+                itemExistente.precoTotal = precoTotalItem;
+            } else {
+                carrinho.push({
+                    nome: nomeProduto,
+                    quantidade: quantidade,
+                    descricaoQtd: descricaoQtd,
+                    precoTotal: precoTotalItem
+                });
+            }
+
+            atualizarInterfaceCarrinho();
+            toggleCart(); // Abre a gaveta automaticamente para o cliente ver
+        }
+
+        function removerDoCarrinho(index) {
+            carrinho.splice(index, 1);
+            atualizarInterfaceCarrinho();
+        }
+
+        function atualizarInterfaceCarrinho() {
+            const container = document.getElementById('cartItemsContainer');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotalPrice = document.getElementById('cartTotalPrice');
+
+            cartCount.textContent = carrinho.length;
+
+            if (carrinho.length === 0) {
+                container.innerHTML = <p style="text-align: center; color: #64748b; margin-top: 40px;">Sua cesta está vazia.</p>;
+                cartTotalPrice.textContent = 'R$ 0,00';
+                return;
+            }
+
+            let html = '';
+            let totalGeral = 0;
+
+            carrinho.forEach((item, index) => {
+                totalGeral += item.precoTotal;
+                const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <span class="cart-item-title">${item.nome}</span>
+                            <span class="cart-item-details">Qtd: ${item.descricaoQtd} | ${precoFmt}</span>
+                        </div>
+                        <button type="button" class="cart-item-remove" onclick="removerDoCarrinho(${index})">Remover</button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            cartTotalPrice.textContent = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function enviarPedidoWhatsApp() {
+            if (carrinho.length === 0) {
+                alert('Sua cesta está vazia!');
+                return;
+            }
+
+            let mensagem = "Olá! Gostaria de fazer o seguinte pedido na Vidamix®:\n\n";
+            let totalGeral = 0;
+
+            carrinho.forEach(item => {
+                const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                mensagem += • ${item.descricaoQtd} de ${item.nome} (${precoFmt})\n;
+                totalGeral += item.precoTotal;
+            });
+
+            const totalFmt = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            mensagem += \n*Valor Total dos Produtos:* ${totalFmt}\n*(Aguardando cálculo do frete e confirmação de endereço).*;
+
+            const urlWhatsApp = https://wa.me/5544998546285?text=${encodeURIComponent(mensagem)};
+            window.open(urlWhatsApp, '_blank');
+        }
+    </script>
 </body>
 </html>
