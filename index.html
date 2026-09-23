@@ -199,8 +199,8 @@
             font-size: 13px;
         }
 
-        /* Estilo dos botões de seleção de peso */
-        .peso-options {
+        /* Estilo dos botões de seleção de peso / quantidade */
+        .peso-options, .qtd-options {
             display: flex;
             justify-content: center;
             gap: 4px;
@@ -208,11 +208,11 @@
             flex-wrap: wrap;
         }
 
-        .peso-btn {
+        .peso-btn, .qtd-btn {
             background: #f1f5f9;
             border: 1px solid #cbd5e1;
-            padding: 6px 12px;
-            font-size: 12px;
+            padding: 6px 10px;
+            font-size: 11px;
             font-weight: 600;
             border-radius: 4px;
             cursor: pointer;
@@ -220,12 +220,12 @@
             color: var(--dark-color);
         }
 
-        .peso-btn:hover {
+        .peso-btn:hover, .qtd-btn:hover {
             background: #e2e8f0;
         }
 
-        /* ESTADO ATIVO DO BOTÃO DE PESO */
-        .peso-btn.active {
+        /* ESTADO ATIVO DO BOTÃO */
+        .peso-btn.active, .qtd-btn.active {
             background: var(--primary-color) !important;
             color: white !important;
             border-color: var(--primary-color) !important;
@@ -353,8 +353,9 @@
                 </div>
             </div>
 
+            <!-- PRODUTOS 2 a 7, 10 a 29 (Fracionados) -->
             <!-- PRODUTO 2 -->
-            <div class="product-card" data-preco-base="75" data-nome="Pão australiano">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Pão australiano">
                 <div>
                     <img src="2.jpg" alt="Pão australiano">
                     <h3>Pão australiano</h3>
@@ -373,7 +374,7 @@
             </div>
 
             <!-- PRODUTO 3 -->
-            <div class="product-card" data-preco-base="75" data-nome="Pão low carb">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Pão low carb">
                 <div>
                     <img src="3.jpg" alt="Pão low carb">
                     <h3>Pão low carb</h3>
@@ -392,7 +393,7 @@
             </div>
 
             <!-- PRODUTO 4 -->
-            <div class="product-card" data-preco-base="75" data-nome="Pão de sementes integral">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Pão de sementes integral">
                 <div>
                     <img src="4.jpg" alt="Pão de sementes integral">
                     <h3>Pão de sementes integral</h3>
@@ -411,7 +412,7 @@
             </div>
 
             <!-- PRODUTO 5 -->
-            <div class="product-card" data-preco-base="75" data-nome="Pão italiano">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Pão italiano">
                 <div>
                     <img src="5.jpg" alt="Pão italiano">
                     <h3>Pão italiano</h3>
@@ -430,7 +431,7 @@
             </div>
 
             <!-- PRODUTO 6 -->
-            <div class="product-card" data-preco-base="80" data-nome="Bolinho frito da vovó">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="80" data-nome="Bolinho frito da vovó">
                 <div>
                     <img src="6.jpg" alt="Bolinho frito da vovó">
                     <h3>Bolinho frito da vovó</h3>
@@ -449,7 +450,7 @@
             </div>
 
             <!-- PRODUTO 7 -->
-            <div class="product-card" data-preco-base="80" data-nome="Pão de hambúrguer">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="80" data-nome="Pão de hambúrguer">
                 <div>
                     <img src="7.jpg" alt="Pão de hambúrguer">
                     <h3>Pão de hambúrguer</h3>
@@ -467,36 +468,54 @@
                 </div>
             </div>
 
-            <!-- PRODUTO 8 -->
-            <div class="product-card">
+            <!-- PRODUTO 8 (Salgado Unitário com Seletor de Quantidade a partir de 6) -->
+            <div class="product-card" data-tipo="unidade" data-preco-unitario="8" data-nome="Pãozinho recheado">
                 <div>
                     <img src="8.jpg" alt="Pãozinho recheado">
                     <h3>Pãozinho recheado</h3>
                     <p>Recheio saboroso, de frango, temperado artesanalmente.</p>
-                    <span class="product-badge">Mínimo: 6 unidades (R$ 48,00)</span>
+                    
+                    <!-- Botões de escolha de quantidade (mínimo 6) -->
+                    <div class="qtd-options">
+                        <button type="button" class="qtd-btn active" onclick="mudarQtd(this, 6)">6 un.</button>
+                        <button type="button" class="qtd-btn" onclick="mudarQtd(this, 7)">7 un.</button>
+                        <button type="button" class="qtd-btn" onclick="mudarQtd(this, 8)">8 un.</button>
+                        <button type="button" class="qtd-btn" onclick="mudarQtd(this, 9)">9 un.</button>
+                        <button type="button" class="qtd-btn" onclick="mudarQtd(this, 10)">10 un.</button>
+                        <button type="button" class="qtd-btn" onclick="mudarQtd(this, 12)">12 un.</button>
+                    </div>
                 </div>
                 <div>
-                    <div class="product-price">R$ 8,00 un.</div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pãozinho%20recheado%20(Mínimo%206%20unidades)." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <div class="product-price display-preco">R$ 48,00</div>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%206%20unidades%20do%20Pãozinho%20recheado%20(R$%2048,00)." target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
                 </div>
             </div>
 
-            <!-- PRODUTO 9 -->
-            <div class="product-card">
+            <!-- PRODUTO 9 (Esfiha com Seletor de Quantidade a partir de 6) -->
+            <div class="product-card" data-tipo="unidade" data-preco-unitario="8" data-nome="Esfiha de carne ou frango">
                 <div>
                     <img src="9.jpg" alt="Esfiha de carne ou frango">
                     <h3>Esfiha de carne ou frango</h3>
                     <p>Massa artesanal, macia, com recheio temperado e gergelim.</p>
-                    <span class="product-badge">Mínimo: 6 unidades (R$ 48,00)</span>
+                    
+                    <div class="qtd-options">
+                        <button type="button" class="qtd-btn active" onclick="mudarQtd(this, 6)">6 un.</button>
+                        <button type="button" class="qtd-btn" onclick="mudarQtd(this, 7)">7 un.</button>
+                        <button type="button" class="qtd-btn" onclick="mudarQtd(this, 8)">8 un.</button>
+                        <button type="button" class="qtd-btn" onclick="mudarQtd(this, 9)">9 un.</button>
+                        <button type="button" class="qtd-btn" onclick="mudarQtd(this, 10)">10 un.</button>
+                        <button type="button" class="qtd-btn" onclick="mudarQtd(this, 12)">12 un.</button>
+                    </div>
                 </div>
                 <div>
-                    <div class="product-price">R$ 8,00 un.</div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20a%20Esfiha%20de%20carne%20ou%20frango%20(Mínimo%206%20unidades)." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <div class="product-price display-preco">R$ 48,00</div>
+                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%206%20unidades%20da%20Esfiha%20de%20carne%20ou%20frango%20(R$%2048,00)." target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
                 </div>
             </div>
 
+            <!-- PRODUTOS 10 a 29 (Fracionados) -->
             <!-- PRODUTO 10 -->
-            <div class="product-card" data-preco-base="75" data-nome="Bolo de banana">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Bolo de banana">
                 <div>
                     <img src="10.jpg" alt="Bolo de banana">
                     <h3>Bolo de banana</h3>
@@ -515,7 +534,7 @@
             </div>
 
             <!-- PRODUTO 11 -->
-            <div class="product-card" data-preco-base="75" data-nome="Bolo de café">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Bolo de café">
                 <div>
                     <img src="11.jpg" alt="Bolo de café">
                     <h3>Bolo de café</h3>
@@ -534,7 +553,7 @@
             </div>
 
             <!-- PRODUTO 12 -->
-            <div class="product-card" data-preco-base="75" data-nome="Bolo mesclado simples">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Bolo mesclado simples">
                 <div>
                     <img src="12.jpg" alt="Bolo mesclado simples">
                     <h3>Bolo mesclado simples</h3>
@@ -553,7 +572,7 @@
             </div>
 
             <!-- PRODUTO 13 -->
-            <div class="product-card" data-preco-base="75" data-nome="Pão de lanche">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Pão de lanche">
                 <div>
                     <img src="13.jpg" alt="Pão de lanche">
                     <h3>Pão de lanche</h3>
@@ -572,7 +591,7 @@
             </div>
 
             <!-- PRODUTO 14 -->
-            <div class="product-card" data-preco-base="75" data-nome="Pão multigrãos">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Pão multigrãos">
                 <div>
                     <img src="14.jpg" alt="Pão multigrãos">
                     <h3>Pão multigrãos</h3>
@@ -591,7 +610,7 @@
             </div>
 
             <!-- PRODUTO 15 -->
-            <div class="product-card" data-preco-base="75" data-nome="Pão tipo bisnaguinha">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Pão tipo bisnaguinha">
                 <div>
                     <img src="15.jpg" alt="Pão tipo bisnaguinha">
                     <h3>Pão tipo bisnaguinha</h3>
@@ -610,7 +629,7 @@
             </div>
 
             <!-- PRODUTO 16 -->
-            <div class="product-card" data-preco-base="75" data-nome="Pão de batata-doce">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Pão de batata-doce">
                 <div>
                     <img src="16.jpg" alt="Pão de batata-doce">
                     <h3>Pão de batata-doce</h3>
@@ -629,7 +648,7 @@
             </div>
 
             <!-- PRODUTO 17 -->
-            <div class="product-card" data-preco-base="75" data-nome="Bolo de laranja">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Bolo de laranja">
                 <div>
                     <img src="17.jpg" alt="Bolo de laranja">
                     <h3>Bolo de laranja</h3>
@@ -648,7 +667,7 @@
             </div>
 
             <!-- PRODUTO 18 -->
-            <div class="product-card" data-preco-base="75" data-nome="Pão de sementes">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Pão de sementes">
                 <div>
                     <img src="18.jpg" alt="Pão de sementes">
                     <h3>Pão de sementes</h3>
@@ -667,7 +686,7 @@
             </div>
 
             <!-- PRODUTO 19 -->
-            <div class="product-card" data-preco-base="75" data-nome="Pão de milho">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Pão de milho">
                 <div>
                     <img src="19.jpg" alt="Pão de milho">
                     <h3>Pão de milho</h3>
@@ -686,7 +705,7 @@
             </div>
 
             <!-- PRODUTO 20 -->
-            <div class="product-card" data-preco-base="75" data-nome="Pão de batata-doce e bisnaguinha">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Pão de batata-doce e bisnaguinha">
                 <div>
                     <img src="20.jpg" alt="Pão de batata-doce e bisnaguinha">
                     <h3>Pão de batata-doce e bisnaguinha</h3>
@@ -705,7 +724,7 @@
             </div>
 
             <!-- PRODUTO 21 -->
-            <div class="product-card" data-preco-base="75" data-nome="Pão de forma branco">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Pão de forma branco">
                 <div>
                     <img src="21.jpg" alt="Pão de forma branco">
                     <h3>Pão de forma branco</h3>
@@ -724,7 +743,7 @@
             </div>
 
             <!-- PRODUTO 22 -->
-            <div class="product-card" data-preco-base="130" data-nome="Pão recheado">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="130" data-nome="Pão recheado">
                 <div>
                     <img src="22.jpg" alt="Pão recheado">
                     <h3>Pão recheado</h3>
@@ -743,7 +762,7 @@
             </div>
 
             <!-- PRODUTO 23 -->
-            <div class="product-card" data-preco-base="130" data-nome="Bolo de amendoim">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="130" data-nome="Bolo de amendoim">
                 <div>
                     <img src="23.jpg" alt="Bolo de amendoim">
                     <h3>Bolo de amendoim</h3>
@@ -762,7 +781,7 @@
             </div>
 
             <!-- PRODUTO 24 -->
-            <div class="product-card" data-preco-base="85" data-nome="Bolo de cacau">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="85" data-nome="Bolo de cacau">
                 <div>
                     <img src="24.jpg" alt="Bolo de cacau">
                     <h3>Bolo de cacau</h3>
@@ -781,7 +800,7 @@
             </div>
 
             <!-- PRODUTO 25 -->
-            <div class="product-card" data-preco-base="95" data-nome="Empadão de frango">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="95" data-nome="Empadão de frango">
                 <div>
                     <img src="25.jpg" alt="Empadão de frango">
                     <h3>Empadão de frango</h3>
@@ -800,7 +819,7 @@
             </div>
 
             <!-- PRODUTO 26 -->
-            <div class="product-card" data-preco-base="80" data-nome="Bolo tipo charge">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="80" data-nome="Bolo tipo charge">
                 <div>
                     <img src="26.jpg" alt="Bolo tipo charge">
                     <h3>Bolo tipo charge</h3>
@@ -819,7 +838,7 @@
             </div>
 
             <!-- PRODUTO 27 -->
-            <div class="product-card" data-preco-base="80" data-nome="Bolo de cenoura">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="80" data-nome="Bolo de cenoura">
                 <div>
                     <img src="27.jpg" alt="Bolo de cenoura">
                     <h3>Bolo de cenoura</h3>
@@ -838,7 +857,7 @@
             </div>
 
             <!-- PRODUTO 28 -->
-            <div class="product-card" data-preco-base="75" data-nome="Bolo de limão">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="75" data-nome="Bolo de limão">
                 <div>
                     <img src="28.jpg" alt="Bolo de limão">
                     <h3>Bolo de limão</h3>
@@ -857,7 +876,7 @@
             </div>
 
             <!-- PRODUTO 29 -->
-            <div class="product-card" data-preco-base="85" data-nome="Bolo mesclado com cobertura de brigadeiro">
+            <div class="product-card" data-tipo="fracionado" data-preco-base="85" data-nome="Bolo mesclado com cobertura de brigadeiro">
                 <div>
                     <img src="29.jpg" alt="Bolo mesclado com cobertura de brigadeiro">
                     <h3>Bolo mesclado com cobertura de brigadeiro</h3>
@@ -910,7 +929,7 @@
         <p style="margin-top: 10px; color: #94a3b8; font-size: 12px;">Produtos artesanais sem glúten e sem lactose — Contato: 📱 (44) 99854-6285</p>
     </footer>
 
-    <!-- Script de Seleção de Peso -->
+    <!-- Script de Interação dos Botões (Pesos e Quantidades) -->
     <script>
         function mudarPeso(botao, multiplicador, textoPeso) {
             const card = botao.closest('.product-card');
@@ -919,17 +938,39 @@
 
             const novoPreco = precoBase * multiplicador;
 
-            // Formata o preço visualmente para Real (ex: R$ 18,75)
+            // Formata o preço visualmente para Real
             const displayPreco = card.querySelector('.display-preco');
             displayPreco.textContent = novoPreco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-            // Atualiza o link do WhatsApp com o peso escolhido e o valor correto
+            // Atualiza o link do WhatsApp
             const btnWhatsapp = card.querySelector('.btn-whatsapp');
             const mensagem = Olá! Gostaria de encomendar ${textoPeso} do ${nomeProduto} (${novoPreco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}).;
             btnWhatsapp.href = https://wa.me/5544998546285?text=${encodeURIComponent(mensagem)};
 
-            // Remove a classe active de todos os botões daquele card e coloca no clicado
+            // Alterna o botão ativo
             const botoes = card.querySelectorAll('.peso-btn');
+            botoes.forEach(b => b.classList.remove('active'));
+            botao.classList.add('active');
+        }
+
+        function mudarQtd(botao, quantidade) {
+            const card = botao.closest('.product-card');
+            const precoUnitario = parseFloat(card.getAttribute('data-preco-unitario'));
+            const nomeProduto = card.getAttribute('data-nome');
+
+            const valorTotal = precoUnitario * quantidade;
+
+            // Atualiza o preço na tela
+            const displayPreco = card.querySelector('.display-preco');
+            displayPreco.textContent = valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            // Atualiza o link do WhatsApp com a quantidade de unidades escolhida
+            const btnWhatsapp = card.querySelector('.btn-whatsapp');
+            const mensagem = Olá! Gostaria de encomendar ${quantidade} unidades do produto ${nomeProduto} (Total: ${valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}).;
+            btnWhatsapp.href = https://wa.me/5544998546285?text=${encodeURIComponent(mensagem)};
+
+            // Alterna o botão ativo
+            const botoes = card.querySelectorAll('.qtd-btn');
             botoes.forEach(b => b.classList.remove('active'));
             botao.classList.add('active');
         }
