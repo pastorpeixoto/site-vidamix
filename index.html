@@ -74,6 +74,7 @@
             display: flex;
             list-style: none;
             gap: 25px;
+            align-items: center;
         }
 
         nav ul li a {
@@ -86,6 +87,32 @@
 
         nav ul li a:hover {
             color: var(--vidamix-blue);
+        }
+
+        /* Botão do Carrinho no Menu */
+        .cart-btn-menu {
+            background: var(--primary-color);
+            color: white !important;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .cart-btn-menu:hover {
+            background: #23523d;
+        }
+
+        #cart-count {
+            background: var(--price-color);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
         }
 
         /* Seção Hero com Azul Claro Clássico */
@@ -129,6 +156,8 @@
             font-weight: 700;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             transition: transform 0.2s, opacity 0.3s;
+            cursor: pointer;
+            border: none;
         }
 
         .btn:hover {
@@ -250,6 +279,121 @@
             margin-bottom: 15px;
         }
 
+        /* Gaveta do Carrinho (Sidebar) */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            display: none;
+            justify-content: flex-end;
+        }
+
+        .cart-sidebar {
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -4px 0 15px rgba(0,0,0,0.1);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .cart-overlay.active {
+            display: flex;
+        }
+
+        .cart-overlay.active .cart-sidebar {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .cart-header h2 {
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-right: 5px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+
+        .cart-item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .cart-item-title {
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .cart-item-details {
+            color: #64748b;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: var(--price-color);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .cart-footer {
+            border-top: 2px solid #f1f5f9;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
         /* Seção de Vídeos */
         .video-section {
             background: #ffffff;
@@ -271,7 +415,7 @@
         }
 
         @media (max-width: 768px) {
-            nav ul {
+            nav ul li:not(:last-child) {
                 display: none;
             }
             .hero h1 {
@@ -306,6 +450,11 @@
                     <li><a href="#products">Produtos</a></li>
                     <li><a href="#videos">Vídeos</a></li>
                     <li><a href="#contact">Contato</a></li>
+                    <li>
+                        <a href="#" class="cart-btn-menu" onclick="toggleCart(event)">
+                            🛒 Cesta <span id="cart-count">0</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -341,7 +490,7 @@
         <div class="products-grid">
             
             <!-- PRODUTO 1 (Unitário / Cesta - Preço Fixo) -->
-            <div class="product-card">
+            <div class="product-card" data-tipo="fixo" data-preco-base="120">
                 <div>
                     <img src="1.jpg" alt="Cesta Amor que Nutre">
                     <h3>Cesta Amor que Nutre</h3>
@@ -350,7 +499,7 @@
                 </div>
                 <div>
                     <div class="product-price">R$ 120,00</div>
-                    <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20a%20Cesta%20Amor%20que%20Nutre%20(R$%20120,00)." target="_blank" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Cesta Amor que Nutre', 120)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -367,7 +516,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão australiano', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -384,7 +533,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão low carb', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -401,7 +550,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão de sementes integral', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -418,7 +567,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão italiano', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -435,7 +584,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 80,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Bolinho frito da vovó', 80)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -452,7 +601,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 80,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão de hambúrguer', 80)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -469,7 +618,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 48,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pãozinho recheado', 8)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -486,7 +635,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 48,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Esfiha de carne ou frango', 8)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -503,7 +652,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Bolo de banana', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -520,7 +669,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Bolo de café', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -537,7 +686,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Bolo mesclado simples', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -554,7 +703,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão de lanche', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -571,7 +720,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão multigrãos', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -588,7 +737,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão tipo bisnaguinha', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -605,7 +754,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão de batata-doce', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -622,7 +771,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Bolo de laranja', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -639,7 +788,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão de sementes', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -656,7 +805,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão de milho', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -673,7 +822,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão de batata-doce e bisnaguinha', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -690,7 +839,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão de forma branco', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -707,7 +856,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 130,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Pão recheado', 130)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -724,7 +873,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 130,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Bolo de amendoim', 130)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -741,7 +890,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 85,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Bolo de cacau', 85)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -758,7 +907,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 95,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Empadão de frango', 95)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -775,7 +924,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 80,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Bolo tipo charge', 80)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -792,7 +941,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 80,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Bolo de cenoura', 80)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -809,7 +958,7 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 75,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Bolo de limão', 75)">Adicionar à Cesta</button>
                 </div>
             </div>
 
@@ -826,12 +975,33 @@
                 </div>
                 <div>
                     <div class="product-price display-preco">R$ 85,00</div>
-                    <a href="#" target="_blank" class="btn btn-whatsapp" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);">Pedir Agora</a>
+                    <button type="button" class="btn" style="background-color: var(--vidamix-blue); color: #1e293b; padding: 10px 24px; font-size: 14px; width: calc(100% - 30px);" onclick="adicionarAoCarrinho(this, 'Bolo mesclado com cobertura de brigadeiro', 85)">Adicionar à Cesta</button>
                 </div>
             </div>
 
         </div>
     </section>
+
+    <!-- Gaveta Lateral do Carrinho (Sidebar) -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h2>Sua Cesta Vidamix®</h2>
+                <button type="button" class="close-cart" onclick="toggleCart(event)">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItemsContainer">
+                <!-- Itens adicionados aparecem aqui dinamicamente -->
+                <p style="text-align: center; color: #64748b; margin-top: 40px;">Sua cesta está vazia.</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotalPrice">R$ 0,00</span>
+                </div>
+                <button type="button" class="btn" style="background-color: #25d366; color: white; width: 100%; font-size: 16px;" onclick="enviarPedidoWhatsApp()">Finalizar Pedido no WhatsApp</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Vídeos -->
     <section id="videos" class="video-section">
@@ -865,14 +1035,17 @@
         <p style="margin-top: 10px; color: #94a3b8; font-size: 12px;">Produtos artesanais sem glúten e sem lactose — Contato: 📱 (44) 99854-6285</p>
     </footer>
 
-    <!-- Função JavaScript Universal Atualizada -->
+    <!-- Lógica do Carrinho e Cálculos -->
     <script>
-        // Inicializa os links do WhatsApp logo ao carregar a página
+        let carrinho = [];
+
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.product-card[data-tipo]').forEach(card => {
                 const input = card.querySelector('.input-qtd');
-                const nome = card.querySelector('h3').textContent;
-                atualizarValor(input, nome);
+                if(input) {
+                    const nome = card.querySelector('h3').textContent;
+                    atualizarValor(input, nome);
+                }
             });
         });
 
@@ -882,7 +1055,6 @@
             const precoBase = parseFloat(card.dataset.precoBase);
             let quantidade = parseFloat(input.value) || 0;
 
-            // Validação das regras de mínimo
             if (tipo === 'peso' && quantidade < 0.25) {
                 quantidade = 0.25;
                 input.value = 0.25;
@@ -893,20 +1065,117 @@
 
             const total = precoBase * quantidade;
             const precoFormatado = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            
+            const displayPreco = card.querySelector('.display-preco');
+            if(displayPreco) {
+                displayPreco.textContent = precoFormatado;
+            }
+        }
 
-            // Atualiza o display de preço na tela
-            card.querySelector('.display-preco').textContent = precoFormatado;
+        function toggleCart(event) {
+            if(event) event.preventDefault();
+            const overlay = document.getElementById('cartOverlay');
+            overlay.classList.toggle('active');
+        }
 
-            // Cria a mensagem e atualiza o botão do WhatsApp
-            let mensagem = "";
-            if (tipo === 'peso') {
-                const textoPeso = quantidade >= 1 ? ${quantidade}kg : ${quantidade * 1000}g;
-                mensagem = Olá! Gostaria de encomendar ${textoPeso} do ${nomeProduto} (${precoFormatado}).;
+        function adicionarAoCarrinho(button, nomeProduto, precoBase) {
+            const card = button.closest('.product-card');
+            const tipo = card.dataset.tipo;
+            let quantidade = 1;
+            let descricaoQtd = "";
+
+            if (tipo === 'peso' || tipo === 'unidade') {
+                const input = card.querySelector('.input-qtd');
+                quantidade = parseFloat(input.value) || (tipo === 'peso' ? 1 : 6);
+                
+                if (tipo === 'peso' && quantidade < 0.25) quantidade = 0.25;
+                if (tipo === 'unidade' && quantidade < 6) quantidade = 6;
+
+                descricaoQtd = tipo === 'peso' ? (quantidade >= 1 ? ${quantidade}kg : ${quantidade * 1000}g) : ${quantidade} un.;
             } else {
-                mensagem = Olá! Gostaria de encomendar ${quantidade} unidades do produto ${nomeProduto} (Total: ${precoFormatado}).;
+                descricaoQtd = "1 un.";
             }
 
-            card.querySelector('.btn-whatsapp').href = https://wa.me/5544998546285?text=${encodeURIComponent(mensagem)};
+            const precoTotalItem = precoBase * quantidade;
+
+            // Adiciona ou atualiza no array do carrinho
+            const itemExistente = carrinho.find(item => item.nome === nomeProduto);
+            if (itemExistente) {
+                itemExistente.quantidade = quantidade;
+                itemExistente.descricaoQtd = descricaoQtd;
+                itemExistente.precoTotal = precoTotalItem;
+            } else {
+                carrinho.push({
+                    nome: nomeProduto,
+                    quantidade: quantidade,
+                    descricaoQtd: descricaoQtd,
+                    precoTotal: precoTotalItem
+                });
+            }
+
+            atualizarInterfaceCarrinho();
+            toggleCart(); // Abre a gaveta para o cliente ver o produto adicionado
+        }
+
+        function removerDoCarrinho(index) {
+            carrinho.splice(index, 1);
+            atualizarInterfaceCarrinho();
+        }
+
+        function atualizarInterfaceCarrinho() {
+            const container = document.getElementById('cartItemsContainer');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotalPrice = document.getElementById('cartTotalPrice');
+
+            cartCount.textContent = carrinho.length;
+
+            if (carrinho.length === 0) {
+                container.innerHTML = <p style="text-align: center; color: #64748b; margin-top: 40px;">Sua cesta está vazia.</p>;
+                cartTotalPrice.textContent = 'R$ 0,00';
+                return;
+            }
+
+            let html = '';
+            let totalGeral = 0;
+
+            carrinho.forEach((item, index) => {
+                totalGeral += item.precoTotal;
+                const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <span class="cart-item-title">${item.nome}</span>
+                            <span class="cart-item-details">Qtd: ${item.descricaoQtd} | ${precoFmt}</span>
+                        </div>
+                        <button type="button" class="cart-item-remove" onclick="removerDoCarrinho(${index})">Remover</button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            cartTotalPrice.textContent = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function enviarPedidoWhatsApp() {
+            if (carrinho.length === 0) {
+                alert('Sua cesta está vazia!');
+                return;
+            }
+
+            let mensagem = "Olá! Gostaria de fazer o seguinte pedido na Vidamix®:\n\n";
+            let totalGeral = 0;
+
+            carrinho.forEach(item => {
+                const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                mensagem += • ${item.quantidade >= 1 && item.descricaoQtd.includes('kg') ? item.descricaoQtd : item.descricaoQtd} de ${item.nome} (${precoFmt})\n;
+                totalGeral += item.precoTotal;
+            });
+
+            const totalFmt = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            mensagem += \n*Valor Total dos Produtos:* ${totalFmt}\n*(Aguardando cálculo do frete e confirmação de endereço).*;
+
+            const urlWhatsApp = https://wa.me/5544998546285?text=${encodeURIComponent(mensagem)};
+            window.open(urlWhatsApp, '_blank');
         }
     </script>
 </body>
