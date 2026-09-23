@@ -211,8 +211,8 @@
         .peso-btn {
             background: #f1f5f9;
             border: 1px solid #cbd5e1;
-            padding: 5px 10px;
-            font-size: 11px;
+            padding: 6px 12px;
+            font-size: 12px;
             font-weight: 600;
             border-radius: 4px;
             cursor: pointer;
@@ -224,10 +224,11 @@
             background: #e2e8f0;
         }
 
+        /* ESTADO ATIVO DO BOTÃO DE PESO */
         .peso-btn.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
+            background: var(--primary-color) !important;
+            color: white !important;
+            border-color: var(--primary-color) !important;
         }
 
         .product-badge {
@@ -352,14 +353,12 @@
                 </div>
             </div>
 
-            <!-- PRODUTO 2 (Fracionado com Seletor de Peso) -->
+            <!-- PRODUTO 2 -->
             <div class="product-card" data-preco-base="75" data-nome="Pão australiano">
                 <div>
                     <img src="2.jpg" alt="Pão australiano">
                     <h3>Pão australiano</h3>
                     <p>Massa artesanal macia e saborosa.</p>
-                    
-                    <!-- Botões de escolha de peso -->
                     <div class="peso-options">
                         <button type="button" class="peso-btn" onclick="mudarPeso(this, 0.25, '250g')">250g</button>
                         <button type="button" class="peso-btn" onclick="mudarPeso(this, 0.50, '500g')">500g</button>
@@ -468,7 +467,7 @@
                 </div>
             </div>
 
-            <!-- PRODUTO 8 (Salgado Unitário - Mínimo 6 unidades) -->
+            <!-- PRODUTO 8 -->
             <div class="product-card">
                 <div>
                     <img src="8.jpg" alt="Pãozinho recheado">
@@ -911,27 +910,25 @@
         <p style="margin-top: 10px; color: #94a3b8; font-size: 12px;">Produtos artesanais sem glúten e sem lactose — Contato: 📱 (44) 99854-6285</p>
     </footer>
 
-    <!-- Script Inteligente para Atualizar Preço e WhatsApp por Peso -->
+    <!-- Script de Seleção de Peso -->
     <script>
         function mudarPeso(botao, multiplicador, textoPeso) {
-            // Encontra o card do produto pai
             const card = botao.closest('.product-card');
             const precoBase = parseFloat(card.getAttribute('data-preco-base'));
             const nomeProduto = card.getAttribute('data-nome');
 
-            // Calcula o novo preço proporcional
             const novoPreco = precoBase * multiplicador;
 
-            // Atualiza o texto visual do preço na tela (formato em Real brasileiro)
+            // Formata o preço visualmente para Real (ex: R$ 18,75)
             const displayPreco = card.querySelector('.display-preco');
             displayPreco.textContent = novoPreco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-            // Atualiza o link do botão do WhatsApp com o peso e valor corretos
+            // Atualiza o link do WhatsApp com o peso escolhido e o valor correto
             const btnWhatsapp = card.querySelector('.btn-whatsapp');
             const mensagem = Olá! Gostaria de encomendar ${textoPeso} do ${nomeProduto} (${novoPreco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}).;
             btnWhatsapp.href = https://wa.me/5544998546285?text=${encodeURIComponent(mensagem)};
 
-            // Gerencia a classe 'active' nos botões de peso
+            // Remove a classe active de todos os botões daquele card e coloca no clicado
             const botoes = card.querySelectorAll('.peso-btn');
             botoes.forEach(b => b.classList.remove('active'));
             botao.classList.add('active');
