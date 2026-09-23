@@ -1243,7 +1243,6 @@
 
             const precoTotalItem = precoBase * quantidade;
 
-            // Adiciona ou atualiza no array do carrinho
             const itemExistente = carrinho.find(item => item.nome === nomeProduto);
             if (itemExistente) {
                 itemExistente.quantidade = quantidade;
@@ -1259,7 +1258,7 @@
             }
 
             atualizarInterfaceCarrinho();
-            toggleCart(); // Abre a gaveta automaticamente para o cliente ver
+            toggleCart();
         }
 
         function removerDoCarrinho(index) {
