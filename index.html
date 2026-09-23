@@ -1191,6 +1191,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Atualiza os preços dinamicamente ao alterar o input
             document.querySelectorAll('.product-card[data-tipo]').forEach(card => {
                 const input = card.querySelector('.input-qtd');
                 if(input) {
@@ -1213,12 +1214,27 @@
                     });
                 }
             });
+
+            // Ativa o clique de todos os botões de adicionar à cesta de forma segura
+            document.querySelectorAll('.product-card').forEach(card => {
+                const botao = card.querySelector('.btn');
+                const nomeH3 = card.querySelector('h3');
+                const precoBaseAttr = card.dataset.precoBase;
+
+                if (botao && nomeH3 && precoBaseAttr) {
+                    const nomeProduto = nomeH3.textContent.trim();
+                    const precoBase = parseFloat(precoBaseAttr);
+
+                    botao.removeAttribute('onclick'); // Remove o onclick antigo para evitar conflito
+                    botao.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        adicionarAoCarrinhoSeguro(card, nomeProduto, precoBase);
+                    });
+                }
+            });
         });
 
-        function adicionarAoCarrinho(button, nomeProduto, precoBase) {
-            const card = button.closest('.product-card');
-            if (!card) return;
-
+        function adicionarAoCarrinhoSeguro(card, nomeProduto, precoBase) {
             const tipo = card.dataset.tipo;
             let quantidade = 1;
             let descricaoQtd = "1 un.";
