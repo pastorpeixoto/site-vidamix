@@ -1182,30 +1182,25 @@
     <script>
         let carrinho = [];
 
-        // Função universal para abrir/fechar a gaveta do carrinho
         function toggleCart(event) {
-            if (event) event.preventDefault();
-            
-            // Procura pela gaveta usando qualquer um dos nomes possíveis no seu código
-            const gaveta = document.getElementById('cartOverlay') || 
-                           document.querySelector('.sidebar') || 
-                           document.querySelector('.cart-sidebar');
-                           
+            if (event) {
+                event.preventDefault();
+            }
+            const gaveta = document.getElementById('cartOverlay') || document.querySelector('.sidebar') || document.querySelector('.cart-sidebar');
             if (gaveta) {
                 gaveta.classList.toggle('active');
-            } else {
-                console.warn("A gaveta do carrinho não foi encontrada no HTML.");
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // 1. Atualiza os preços dinamicamente ao mexer no input de quantidade/peso
-            document.querySelectorAll('.product-card[data-tipo]').forEach(card => {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Atualiza os preços dinamicamente
+            const cards = document.querySelectorAll('.product-card[data-tipo]');
+            cards.forEach(function(card) {
                 const input = card.querySelector('.input-qtd');
                 if (input) {
-                    input.addEventListener('input', () => {
-                        const tipo = card.dataset.tipo;
-                        const precoBase = parseFloat(card.dataset.precoBase) || 0;
+                    input.addEventListener('input', function() {
+                        const tipo = card.getAttribute('data-tipo');
+                        const precoBase = parseFloat(card.getAttribute('data-preco-base')) || 0;
                         let quantidade = parseFloat(input.value) || 0;
 
                         if (tipo === 'peso' && quantidade < 0.25) {
@@ -1223,11 +1218,12 @@
                 }
             });
 
-            // 2. Conecta automaticamente o clique de cada botão "Adicionar à Cesta"
-            document.querySelectorAll('.product-card').forEach(card => {
+            // Configura os botões de adicionar
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(function(card) {
                 const botao = card.querySelector('.btn');
                 const nomeH3 = card.querySelector('h3');
-                const precoBaseAttr = card.dataset.precoBase;
+                const precoBaseAttr = card.getAttribute('data-preco-base');
 
                 if (botao && nomeH3 && precoBaseAttr) {
                     const nomeProduto = nomeH3.textContent.trim();
@@ -1235,7 +1231,7 @@
 
                     botao.removeAttribute('onclick');
                     
-                    botao.addEventListener('click', (e) => {
+                    botao.addEventListener('click', function(e) {
                         e.preventDefault();
                         adicionarAoCarrinhoCore(card, nomeProduto, precoBase);
                     });
@@ -1244,7 +1240,7 @@
         });
 
         function adicionarAoCarrinhoCore(card, nomeProduto, precoBase) {
-            const tipo = card.dataset.tipo;
+            const tipo = card.getAttribute('data-tipo');
             let quantidade = 1;
             let descricaoQtd = "1 un.";
 
@@ -1257,12 +1253,19 @@
                 if (tipo === 'peso' && quantidade < 0.25) quantidade = 0.25;
                 if (tipo === 'unidade' && quantidade < 6) quantidade = 6;
 
-                descricaoQtd = tipo === 'peso' ? ${quantidade}kg : ${quantidade} un.;
+                descricaoQtd = tipo === 'peso' ? quantidade + "kg" : quantidade + " un.";
             }
 
             const precoTotalItem = precoBase * quantidade;
 
-            const itemExistente = carrinho.find(item => item.nome === nomeProduto);
+            let itemExistente = null;
+            for (let i = 0; i < carrinho.length; i++) {
+                if (carrinho[i].nome === nomeProduto) {
+                    itemExistente = carrinho[i];
+                    break;
+                }
+            }
+
             if (itemExistente) {
                 itemExistente.quantidade = quantidade;
                 itemExistente.descricaoQtd = descricaoQtd;
@@ -1290,12 +1293,14 @@
             const cartCount = document.getElementById('cart-count');
             const cartTotalPrice = document.getElementById('cartTotalPrice');
 
-            if (cartCount) cartCount.textContent = carrinho.length;
+            if (cartCount) {
+                cartCount.textContent = carrinho.length;
+            }
 
             if (!container) return;
 
             if (carrinho.length === 0) {
-                container.innerHTML = <p style="text-align: center; color: #64748b; margin-top: 40px;">Sua cesta está vazia.</p>;
+                container.innerHTML = '<p style="text-align: center; color: #64748b; margin-top: 40px;">Sua cesta está vazia.</p>';
                 if (cartTotalPrice) cartTotalPrice.textContent = 'R$ 0,00';
                 return;
             }
@@ -1303,19 +1308,19 @@
             let html = '';
             let totalGeral = 0;
 
-            carrinho.forEach((item, index) => {
+            for (let i = 0; i < carrinho.length; i++) {
+                let item = carrinho[i];
                 totalGeral += item.precoTotal;
-                const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                html += `
-                    <div class="cart-item" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px;">
-                        <div class="cart-item-info">
-                            <span class="cart-item-title" style="display: block; font-weight: bold; color: #1e293b;">${item.nome}</span>
-                            <span class="cart-item-details" style="font-size: 13px; color: #64748b;">Qtd: ${item.descricaoQtd} | ${precoFmt}</span>
-                        </div>
-                        <button type="button" class="cart-item-remove" onclick="removerDoCarrinho(${index})" style="background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;">Remover</button>
-                    </div>
-                `;
-            });
+                let precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                
+                html += '<div class="cart-item" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px;">';
+                html += '<div class="cart-item-info">';
+                html += '<span class="cart-item-title" style="display: block; font-weight: bold; color: #1e293b;">' + item.nome + '</span>';
+                html += '<span class="cart-item-details" style="font-size: 13px; color: #64748b;">Qtd: ' + item.descricaoQtd + ' | ' + precoFmt + '</span>';
+                html += '</div>';
+                html += '<button type="button" class="cart-item-remove" onclick="removerDoCarrinho(' + i + ')" style="background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;">Remover</button>';
+                html += '</div>';
+            }
 
             container.innerHTML = html;
             if (cartTotalPrice) {
@@ -1332,16 +1337,17 @@
             let mensagem = "Olá! Gostaria de fazer o seguinte pedido na Vidamix®:\n\n";
             let totalGeral = 0;
 
-            carrinho.forEach(item => {
-                const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                mensagem += • ${item.descricaoQtd} de ${item.nome} (${precoFmt})\n;
+            for (let i = 0; i < carrinho.length; i++) {
+                let item = carrinho[i];
+                let precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                mensagem += "• " + item.descricaoQtd + " de " + item.nome + " (" + precoFmt + ")\n";
                 totalGeral += item.precoTotal;
-            });
+            }
 
-            const totalFmt = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            mensagem += \n*Valor Total dos Produtos:* ${totalFmt}\n*(Aguardando cálculo do frete e confirmação de endereço).*;
+            let totalFmt = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            mensagem += "\n*Valor Total dos Produtos:* " + totalFmt + "\n*(Aguardando cálculo do frete e confirmação de endereço).*";
 
-            const urlWhatsApp = https://wa.me/5544998546285?text=${encodeURIComponent(mensagem)};
+            let urlWhatsApp = "https://wa.me/5544998546285?text=" + encodeURIComponent(mensagem);
             window.open(urlWhatsApp, '_blank');
         }
     </script>
