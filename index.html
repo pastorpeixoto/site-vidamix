@@ -1182,22 +1182,30 @@
     <script>
         let carrinho = [];
 
+        // Função universal para abrir/fechar a gaveta do carrinho
         function toggleCart(event) {
-            if(event) event.preventDefault();
-            const overlay = document.getElementById('cartOverlay');
-            if(overlay) {
-                overlay.classList.toggle('active');
+            if (event) event.preventDefault();
+            
+            // Procura pela gaveta usando qualquer um dos nomes possíveis no seu código
+            const gaveta = document.getElementById('cartOverlay') || 
+                           document.querySelector('.sidebar') || 
+                           document.querySelector('.cart-sidebar');
+                           
+            if (gaveta) {
+                gaveta.classList.toggle('active');
+            } else {
+                console.warn("A gaveta do carrinho não foi encontrada no HTML.");
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Atualiza os preços dinamicamente ao alterar o input
+            // 1. Atualiza os preços dinamicamente ao mexer no input de quantidade/peso
             document.querySelectorAll('.product-card[data-tipo]').forEach(card => {
                 const input = card.querySelector('.input-qtd');
-                if(input) {
+                if (input) {
                     input.addEventListener('input', () => {
                         const tipo = card.dataset.tipo;
-                        const precoBase = parseFloat(card.dataset.precoBase);
+                        const precoBase = parseFloat(card.dataset.precoBase) || 0;
                         let quantidade = parseFloat(input.value) || 0;
 
                         if (tipo === 'peso' && quantidade < 0.25) {
@@ -1208,14 +1216,14 @@
 
                         const total = precoBase * quantidade;
                         const displayPreco = card.querySelector('.display-preco');
-                        if(displayPreco) {
+                        if (displayPreco) {
                             displayPreco.textContent = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                         }
                     });
                 }
             });
 
-            // Ativa o clique de todos os botões de adicionar à cesta de forma segura
+            // 2. Conecta automaticamente o clique de cada botão "Adicionar à Cesta"
             document.querySelectorAll('.product-card').forEach(card => {
                 const botao = card.querySelector('.btn');
                 const nomeH3 = card.querySelector('h3');
@@ -1225,16 +1233,17 @@
                     const nomeProduto = nomeH3.textContent.trim();
                     const precoBase = parseFloat(precoBaseAttr);
 
-                    botao.removeAttribute('onclick'); // Remove o onclick antigo para evitar conflito
+                    botao.removeAttribute('onclick');
+                    
                     botao.addEventListener('click', (e) => {
                         e.preventDefault();
-                        adicionarAoCarrinhoSeguro(card, nomeProduto, precoBase);
+                        adicionarAoCarrinhoCore(card, nomeProduto, precoBase);
                     });
                 }
             });
         });
 
-        function adicionarAoCarrinhoSeguro(card, nomeProduto, precoBase) {
+        function adicionarAoCarrinhoCore(card, nomeProduto, precoBase) {
             const tipo = card.dataset.tipo;
             let quantidade = 1;
             let descricaoQtd = "1 un.";
@@ -1281,13 +1290,13 @@
             const cartCount = document.getElementById('cart-count');
             const cartTotalPrice = document.getElementById('cartTotalPrice');
 
-            if(cartCount) cartCount.textContent = carrinho.length;
+            if (cartCount) cartCount.textContent = carrinho.length;
 
             if (!container) return;
 
             if (carrinho.length === 0) {
                 container.innerHTML = <p style="text-align: center; color: #64748b; margin-top: 40px;">Sua cesta está vazia.</p>;
-                if(cartTotalPrice) cartTotalPrice.textContent = 'R$ 0,00';
+                if (cartTotalPrice) cartTotalPrice.textContent = 'R$ 0,00';
                 return;
             }
 
@@ -1309,7 +1318,7 @@
             });
 
             container.innerHTML = html;
-            if(cartTotalPrice) {
+            if (cartTotalPrice) {
                 cartTotalPrice.textContent = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             }
         }
