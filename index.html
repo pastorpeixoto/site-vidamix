@@ -1105,17 +1105,46 @@
                 itemExistente.quantidade = quantidade;
                 itemExistente.descricaoQtd = descricaoQtd;
                 itemExistente.precoTotal = precoTotalItem;
+                itemExistente.precoBase = precoBase;
             } else {
                 carrinho.push({
                     nome: nomeProduto,
                     quantidade: quantidade,
                     descricaoQtd: descricaoQtd,
-                    precoTotal: precoTotalItem
+                    precoTotal: precoTotalItem,
+                    precoBase: precoBase,
+                    tipo: tipo
                 });
             }
 
             atualizarInterfaceCarrinho();
             toggleCart();
+        }
+
+        function alterarQuantidade(index, operacao) {
+            const item = carrinho[index];
+            let passo = item.tipo === 'peso' ? 0.25 : 1;
+
+            if (operacao === '+') {
+                item.quantidade += passo;
+            } else if (operacao === '-') {
+                item.quantidade -= passo;
+            }
+
+            if (item.tipo === 'peso' && item.quantidade < 0.25) item.quantidade = 0.25;
+            if (item.tipo === 'unidade' && item.quantidade < 6) item.quantidade = 6;
+            if (!item.tipo && item.quantidade < 1) item.quantidade = 1;
+
+            if (item.tipo === 'peso') {
+                item.descricaoQtd = item.quantidade + "kg";
+            } else if (item.tipo === 'unidade') {
+                item.descricaoQtd = item.quantidade + " un.";
+            } else {
+                item.descricaoQtd = item.quantidade + " un.";
+            }
+
+            item.precoTotal = item.precoBase * item.quantidade;
+            atualizarInterfaceCarrinho();
         }
 
         function removerDoCarrinho(index) {
@@ -1145,12 +1174,17 @@
                 totalGeral += item.precoTotal;
                 const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 html += `
-                    <div class="cart-item">
+                    <div class="cart-item" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
                         <div class="cart-item-info">
-                            <span class="cart-item-title">${item.nome}</span>
-                            <span class="cart-item-details">Qtd: ${item.descricaoQtd} | ${precoFmt}</span>
+                            <span class="cart-item-title" style="display: block; font-weight: bold;">${item.nome}</span>
+                            <span class="cart-item-details" style="font-size: 0.9rem; color: #555;">${precoFmt}</span>
+                            <div class="cart-qtd-controls" style="margin-top: 5px; display: flex; align-items: center; gap: 8px;">
+                                <button type="button" onclick="alterarQuantidade(${index}, '-')" style="padding: 2px 8px; cursor: pointer; background: #ddd; border: none; border-radius: 4px;">-</button>
+                                <span>${item.descricaoQtd}</span>
+                                <button type="button" onclick="alterarQuantidade(${index}, '+')" style="padding: 2px 8px; cursor: pointer; background: #ddd; border: none; border-radius: 4px;">+</button>
+                            </div>
                         </div>
-                        <button type="button" class="cart-item-remove" onclick="removerDoCarrinho(${index})">Remover</button>
+                        <button type="button" class="cart-item-remove" onclick="removerDoCarrinho(${index})" style="background: none; border: none; color: #d9534f; cursor: pointer; font-size: 0.85rem;">Remover</button>
                     </div>
                 `;
             });
