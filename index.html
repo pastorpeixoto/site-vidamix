@@ -1093,6 +1093,47 @@
                     precoBase: precoBase,
                     tipo: tipo
                 });
+                function adicionarAoCarrinho(button, nomeProduto, precoBase) {
+    // 1. Encontra o cartão do produto na página
+    const card = button.closest('.product-card');
+    
+    // 2. Pega o tipo (peso ou unidade) e define a quantidade inicial
+    const tipo = card.dataset.tipo;
+    let quantidade = 1;
+    let descricaoQtd = "";
+
+    // 3. Pega o valor digitado no input de quantidade
+    const input = card.querySelector('.input-qtd');
+    if (input) {
+        quantidade = parseFloat(input.value) || (tipo === 'peso' ? 1 : 6);
+    }
+
+    // 4. Validações de quantidade mínima
+    if (tipo === 'peso') {
+        if (quantidade < 0.25) quantidade = 0.25;
+    } else {
+        if (quantidade < 6) quantidade = 6;
+    }
+
+    // 5. Formata a descrição da quantidade (kg ou un)
+    if (tipo === 'peso') {
+        descricaoQtd = quantidade + " kg";
+    } else {
+        descricaoQtd = quantidade + " un.";
+    }
+
+    // 6. CRIA O PRODUTO E ADICIONA NA CESTA (O que estava faltando!)
+    const produto = {
+        nome: nomeProduto,
+        preco: precoBase,
+        quantidade: quantidade,
+        descricao: descricaoQtd
+    };
+
+    // Certifique-se de que a sua lista de carrinho se chama 'carrinho'
+    // e que a função de atualizar a tela se chama 'atualizarCarrinho'
+    carrinho.push(produto);
+    atualizarCarrinho();
             }
 
             atualizarInterfaceCarrinho();
