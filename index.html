@@ -1289,7 +1289,7 @@
             const subtotalFmt = subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             mensagem += "\n*Subtotal dos Produtos:* " + subtotalFmt;
 
-            If (valorFrete > 0) {
+            if (valorFrete > 0) {
                 const freteFmt = valorFrete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 mensagem += "\n*Frete (" + (cepDestino ? "CEP: " + cepDestino : "Região") + "):* " + freteFmt;
             } else {
