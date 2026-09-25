@@ -1271,6 +1271,34 @@
             }
         }
 
+        / Função que faz o botão "Adicionar à Cesta" funcionar
+        function adicionarAoCarrinho(botao, nomeProduto, precoBase) {
+            const card = botao.closest('.product-card');
+            if (!card) return;
+
+            const inputQtd = card.querySelector('.input-qtd');
+            const quantidade = inputQtd ? parseFloat(inputQtd.value) || 1 : 1;
+            const precoTotal = quantidade * precoBase;
+            const descricaoQtd = quantidade + " kg";
+
+            if (typeof carrinho === 'undefined') {
+                window.carrinho = [];
+            }
+            
+            carrinho.push({
+                nome: nomeProduto,
+                quantidade: quantidade,
+                descricaoQtd: descricaoQtd,
+                precoTotal: precoTotal
+            });
+            
+            alert(nomeProduto + " adicionado à cesta!");
+            
+            if (typeof atualizarCarrinho === 'function') {
+                atualizarCarrinho();
+            }
+        }
+
         function enviarPedidoWhatsApp() {
             if (carrinho.length === 0) {
                 alert('Sua cesta está vazia!');
@@ -1289,16 +1317,17 @@
             const subtotalFmt = subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             mensagem += "\n*Subtotal dos Produtos:* " + subtotalFmt;
 
-            if (valorFrete > 0) {
+            if (typeof valorFrete !== 'undefined' && valorFrete > 0) {
                 const freteFmt = valorFrete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                mensagem += "\n*Frete (" + (cepDestino ? "CEP: " + cepDestino : "Região") + "):* " + freteFmt;
+                mensagem += "\n*Frete:* " + freteFmt;
             } else {
                 mensagem += "\n*Frete:* A calcular";
             }
 
-            const valorTotal = subtotal + (valorFrete || 0);
+            const valorTotal = subtotal + (typeof valorFrete !== 'undefined' ? valorFrete : 0);
             const totalFmt = valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             mensagem += "\n*Total Geral:* " + totalFmt;
+            
             let selectPagamento = document.getElementById('forma-pagamento');
             let formaPagamento = selectPagamento ? selectPagamento.value : 'Pix';
             
@@ -1312,55 +1341,5 @@
             window.open(urlWhatsApp, '_blank');
         }
     </script>
-   // Função que faz o botão "Adicionar à Cesta" funcionar
-    function adicionarAoCarrinho(botao, nomeProduto, precoBase) {
-        const card = botao.closest('.product-card');
-        if (!card) return;
-
-        const inputQtd = card.querySelector('.input-qtd');
-        const quantidade = inputQtd ? parseFloat(inputQtd.value) || 1 : 1;
-        const precoTotal = quantidade * precoBase;
-        const descricaoQtd = quantidade + " kg";
-
-        if (typeof carrinho === 'undefined') {
-            window.carrinho = [];
-        }
-        
-        carrinho.push({
-            nome: nomeProduto,
-            quantidade: quantidade,
-            descricaoQtd: descricaoQtd,
-            precoTotal: precoTotal
-        });
-        
-        alert(nomeProduto + " adicionado à cesta!");
-        
-        if (typeof atualizarCarrinho === 'function') {
-            atualizarCarrinho();
-        }
-    }
-
-    // Bloco de cálculo e montagem final do carrinho
-    document.addEventListener('DOMContentLoaded', () => {
-        if (typeof carrinho !== 'undefined' && carrinho.length > 0) {
-            let subtotal = 0;
-            let mensagem = "Pedido:\n\n";
-
-            carrinho.forEach(item => {
-                const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                mensagem += "• " + item.descricaoQtd + " de " + item.nome + " (" + precoFmt + ")\n";
-                subtotal += item.precoTotal;
-            });
-
-            const subtotalFmt = subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            mensagem += "\n*Subtotal dos Produtos:* " + subtotalFmt;
-
-            const valorTotal = subtotal;
-            const totalFmt = valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            mensagem += "\n*Total Geral:* " + totalFmt;
-            mensagem += "\n\n*Forma de Pagamento:* PIX 🔑";
-        }
-    });
-</script>
 </body>
 </html>
