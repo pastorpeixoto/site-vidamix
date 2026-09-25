@@ -1080,7 +1080,7 @@
             }
         }
 
-   let valorFrete = 0;
+  let valorFrete = 0;
         let cepDestino = "";
 
         function adicionarAoCarrinho(button, nomeProduto, precoBase) {
@@ -1122,7 +1122,7 @@
 
             atualizarInterfaceCarrinho();
             
-            // Abre a cesta automaticamente se ela estiver fechada
+            // Abre a cesta automaticamente se ela estiver fechada para criar o painel lateral
             const cartDrawer = document.getElementById('cartDrawer');
             if (cartDrawer && !cartDrawer.classList.contains('open')) {
                 toggleCart();
@@ -1171,7 +1171,7 @@
 
             cepDestino = inputCep.value;
 
-            // Se o CEP começa com 87 (Região de Maringá)
+            // Lógica de Frete: Maringá (R$ 12,00) vs Região (R$ 15,00)
             if (cepVal.startsWith('87')) {
                 const prefixoNum = parseInt(cepVal.substring(0, 4));
                 if (prefixoNum >= 8700 && prefixoNum <= 8708) {
@@ -1228,7 +1228,7 @@
                 `;
             });
 
-            // Seção de Cálculo de Frete
+            // Seção de Cálculo de Frete por CEP
             const freteFmt = valorFrete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             html += `
                 <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #eee;">
@@ -1244,7 +1244,7 @@
                 </div>
             `;
 
-            // Botão opcional para recolher/minimizar a cesta se o cliente quiser ver o site limpo
+            // Botão Continuar Comprando (recolhe o painel para navegar livremente se desejar)
             html += `
                 <div style="margin-top: 15px; text-align: center;">
                     <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 10px;">Continuar Comprando</button>
