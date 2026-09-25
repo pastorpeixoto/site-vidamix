@@ -1312,7 +1312,7 @@
             window.open(urlWhatsApp, '_blank');
         }
     </script>
-    // Função que faz o botão "Adicionar à Cesta" funcionar
+   // Função que faz o botão "Adicionar à Cesta" funcionar
     function adicionarAoCarrinho(botao, nomeProduto, precoBase) {
         const card = botao.closest('.product-card');
         if (!card) return;
@@ -1339,5 +1339,28 @@
             atualizarCarrinho();
         }
     }
+
+    // Bloco de cálculo e montagem final do carrinho
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof carrinho !== 'undefined' && carrinho.length > 0) {
+            let subtotal = 0;
+            let mensagem = "Pedido:\n\n";
+
+            carrinho.forEach(item => {
+                const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                mensagem += "• " + item.descricaoQtd + " de " + item.nome + " (" + precoFmt + ")\n";
+                subtotal += item.precoTotal;
+            });
+
+            const subtotalFmt = subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            mensagem += "\n*Subtotal dos Produtos:* " + subtotalFmt;
+
+            const valorTotal = subtotal;
+            const totalFmt = valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            mensagem += "\n*Total Geral:* " + totalFmt;
+            mensagem += "\n\n*Forma de Pagamento:* PIX 🔑";
+        }
+    });
+</script>
 </body>
 </html>
