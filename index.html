@@ -1312,5 +1312,32 @@
             window.open(urlWhatsApp, '_blank');
         }
     </script>
+    // Função que faz o botão "Adicionar à Cesta" funcionar
+    function adicionarAoCarrinho(botao, nomeProduto, precoBase) {
+        const card = botao.closest('.product-card');
+        if (!card) return;
+
+        const inputQtd = card.querySelector('.input-qtd');
+        const quantidade = inputQtd ? parseFloat(inputQtd.value) || 1 : 1;
+        const precoTotal = quantidade * precoBase;
+        const descricaoQtd = quantidade + " kg";
+
+        if (typeof carrinho === 'undefined') {
+            window.carrinho = [];
+        }
+        
+        carrinho.push({
+            nome: nomeProduto,
+            quantidade: quantidade,
+            descricaoQtd: descricaoQtd,
+            precoTotal: precoTotal
+        });
+        
+        alert(nomeProduto + " adicionado à cesta!");
+        
+        if (typeof atualizarCarrinho === 'function') {
+            atualizarCarrinho();
+        }
+    }
 </body>
 </html>
