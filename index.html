@@ -1258,7 +1258,14 @@
             const totalGeral = subtotal + valorFrete;
             const totalFmt = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             mensagem += "\n\n*Valor Total Geral:* " + totalFmt;
-
+et selectPagamento = document.getElementById('forma-pagamento');
+    let formaPagamento = selectPagamento ? selectPagamento.value : 'Pix';
+    
+    if (formaPagamento === 'Pix') {
+        mensagem += \n*Forma de Pagamento:* Pix\n*Chave Pix:* belabelpeixoto@gmail.com;
+    } else {
+        mensagem += \n*Forma de Pagamento:* ${formaPagamento};
+    }
             const urlWhatsApp = "https://wa.me/5544998546285?text=" + encodeURIComponent(mensagem);
             window.open(urlWhatsApp, '_blank');
         }
