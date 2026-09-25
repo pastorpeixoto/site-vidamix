@@ -1080,7 +1080,7 @@
             }
         }
 
-        function adicionarAoCarrinho(button, nomeProduto, precoBase) {
+     function adicionarAoCarrinho(button, nomeProduto, precoBase) {
             const card = button.closest('.product-card');
             const tipo = card.dataset.tipo;
             let quantidade = 1;
@@ -1117,8 +1117,8 @@
                 });
             }
 
-        atualizarInterfaceCarrinho();
-            // toggleCart();  <--- Removido para a cesta continuar aberta na tela!
+            atualizarInterfaceCarrinho();
+            toggleCart();
         }
 
         function alterarQuantidade(index, operacao) {
@@ -1189,6 +1189,13 @@
                 `;
             });
 
+            // Botão de Continuar Comprando dentro da cesta
+            html += `
+                <div style="margin-top: 20px; text-align: center;">
+                    <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 10px;">Continuar Comprando</button>
+                </div>
+            `;
+
             container.innerHTML = html;
             if(cartTotalPrice) {
                 cartTotalPrice.textContent = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -1211,7 +1218,7 @@
             });
 
             const totalFmt = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            mensagem += "\n*Valor Total dos Produtos:* " + totalFmt + "\n*(Aguardando cálculo do frete e confirmação de endereço).*";
+            mensagem += "\n*Valor Total des Produtos:* " + totalFmt + "\n*(Aguardando cálculo do frete e confirmação de endereço).*";
 
             const urlWhatsApp = "https://wa.me/5544998546285?text=" + encodeURIComponent(mensagem);
             window.open(urlWhatsApp, '_blank');
