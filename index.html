@@ -1080,7 +1080,7 @@
             }
         }
 
-    let valorFrete = 0;
+   let valorFrete = 0;
         let cepDestino = "";
 
         function adicionarAoCarrinho(button, nomeProduto, precoBase) {
@@ -1122,7 +1122,7 @@
 
             atualizarInterfaceCarrinho();
             
-            // Abre a cesta automaticamente na tela após adicionar o produto
+            // Abre a cesta automaticamente se ela estiver fechada
             const cartDrawer = document.getElementById('cartDrawer');
             if (cartDrawer && !cartDrawer.classList.contains('open')) {
                 toggleCart();
@@ -1173,7 +1173,6 @@
 
             // Se o CEP começa com 87 (Região de Maringá)
             if (cepVal.startsWith('87')) {
-                // Faixa específica de Maringá (87000 a 87089 aproximadamente)
                 const prefixoNum = parseInt(cepVal.substring(0, 4));
                 if (prefixoNum >= 8700 && prefixoNum <= 8708) {
                     valorFrete = 12.00;
@@ -1245,7 +1244,7 @@
                 </div>
             `;
 
-            // Botão de Continuar Comprando
+            // Botão opcional para recolher/minimizar a cesta se o cliente quiser ver o site limpo
             html += `
                 <div style="margin-top: 15px; text-align: center;">
                     <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 10px;">Continuar Comprando</button>
