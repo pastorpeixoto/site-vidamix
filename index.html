@@ -1080,8 +1080,16 @@
             }
         }
 
-  let valorFrete = 0;
+let valorFrete = 0;
         let cepDestino = "";
+
+        // Função auxiliar para garantir que a cesta SEMPRE abra quando adicionamos algo
+        function abrirCestaForcado() {
+            const cartDrawer = document.getElementById('cartDrawer');
+            if (cartDrawer && !cartDrawer.classList.contains('open')) {
+                toggleCart();
+            }
+        }
 
         function adicionarAoCarrinho(button, nomeProduto, precoBase) {
             const card = button.closest('.product-card');
@@ -1120,9 +1128,9 @@
                 });
             }
 
+            // Atualiza a interface e força a abertura imediata da tela dividida da cesta
             atualizarInterfaceCarrinho();
             
-            // Abre a cesta automaticamente se ela estiver fechada para criar o painel lateral
             const cartDrawer = document.getElementById('cartDrawer');
             if (cartDrawer && !cartDrawer.classList.contains('open')) {
                 toggleCart();
@@ -1244,7 +1252,7 @@
                 </div>
             `;
 
-            // Botão Continuar Comprando (recolhe o painel para navegar livremente se desejar)
+            // Botão Continuar Comprando
             html += `
                 <div style="margin-top: 15px; text-align: center;">
                     <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 10px;">Continuar Comprando</button>
