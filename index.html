@@ -89,24 +89,6 @@
             color: var(--vidamix-blue);
         }
 
-        /* Botão do Carrinho no Menu */
-        .cart-btn-menu {
-            background: var(--primary-color);
-            color: white !important;
-            padding: 8px 16px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-
-        .cart-btn-menu:hover {
-            background: #23523d;
-        }
-
         #cart-count {
             background: var(--price-color);
             color: white;
@@ -436,7 +418,7 @@
 </head>
 <body>
 
-    <!-- Cabeçalho -->
+    <!-- Cabeçalho (Sem a palavra Cesta) -->
     <header>
         <div class="container">
             <a href="#" class="logo-area">
@@ -450,11 +432,6 @@
                     <li><a href="#products">Produtos</a></li>
                     <li><a href="#videos">Vídeos</a></li>
                     <li><a href="#contact">Contato</a></li>
-                    <li>
-                        <a href="javascript:void(0);" class="cart-btn-menu" onclick="toggleCart(event)">
-                            🛒 Cesta <span id="cart-count">0</span>
-                        </a>
-                    </li>
                 </ul>
             </nav>
         </div>
@@ -471,7 +448,7 @@
 
     <!-- Sobre -->
     <div style="height: 40px; clear: both;"></div>
-   <section id="products" style="background: var(--light-color); padding-top: 40px; padding-bottom: 40px;">
+   <section id="about" style="background: var(--light-color); padding-top: 40px; padding-bottom: 40px;">
         <div class="container" style="flex-direction: column;">
             <h2 class="section-title">Sobre a Marca</h2>
             <p style="max-width: 800px; text-align: center; font-size: 16px; color: #475569;">
@@ -490,7 +467,7 @@
 
         <div class="products-grid">
             
-            <!-- PRODUTO 1 (Unitário / Cesta - Preço Fixo) -->
+            <!-- PRODUTO 1 -->
             <div class="product-card" data-tipo="fixo" data-preco-base="120">
                 <div>
                     <img src="1.jpg" alt="Cesta Amor que Nutre">
@@ -606,7 +583,7 @@
                 </div>
             </div>
 
-            <!-- PRODUTO 8 (Salgado Unitário com Mínimo de 6 Unidades) -->
+            <!-- PRODUTO 8 -->
             <div class="product-card" data-tipo="unidade" data-preco-base="8">
                 <div>
                     <img src="8.jpg" alt="Pãozinho recheado">
@@ -623,7 +600,7 @@
                 </div>
             </div>
 
-            <!-- PRODUTO 9 (Esfiha com Mínimo de 6 Unidades) -->
+            <!-- PRODUTO 9 -->
             <div class="product-card" data-tipo="unidade" data-preco-base="8">
                 <div>
                     <img src="9.jpg" alt="Esfiha de carne ou frango">
@@ -1035,9 +1012,11 @@
         <p style="margin-top: 10px; color: #94a3b8; font-size: 12px;">Produtos artesanais sem glúten e sem lactose — Contato: 📱 (44) 99854-6285</p>
     </footer>
 
-    <!-- Lógica Única e Correta do Carrinho -->
+    <!-- Lógica do Carrinho e Tela Dividida -->
     <script>
         let carrinho = [];
+        let valorFrete = 0;
+        let cepDestino = "";
 
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.product-card[data-tipo]').forEach(card => {
@@ -1080,17 +1059,6 @@
             }
         }
 
-let valorFrete = 0;
-        let cepDestino = "";
-
-        // Função auxiliar para garantir que a cesta SEMPRE abra quando adicionamos algo
-        function abrirCestaForcado() {
-            const cartDrawer = document.getElementById('cartDrawer');
-            if (cartDrawer && !cartDrawer.classList.contains('open')) {
-                toggleCart();
-            }
-        }
-
         function adicionarAoCarrinho(button, nomeProduto, precoBase) {
             const card = button.closest('.product-card');
             const tipo = card.dataset.tipo;
@@ -1128,11 +1096,11 @@ let valorFrete = 0;
                 });
             }
 
-            // Atualiza a interface e força a abertura imediata da tela dividida da cesta
             atualizarInterfaceCarrinho();
             
-            const cartDrawer = document.getElementById('cartDrawer');
-            if (cartDrawer && !cartDrawer.classList.contains('open')) {
+            // Abre a cesta automaticamente na tela dividida ao adicionar
+            const overlay = document.getElementById('cartOverlay');
+            if (overlay && !overlay.classList.contains('active')) {
                 toggleCart();
             }
         }
@@ -1179,7 +1147,6 @@ let valorFrete = 0;
 
             cepDestino = inputCep.value;
 
-            // Lógica de Frete: Maringá (R$ 12,00) vs Região (R$ 15,00)
             if (cepVal.startsWith('87')) {
                 const prefixoNum = parseInt(cepVal.substring(0, 4));
                 if (prefixoNum >= 8700 && prefixoNum <= 8708) {
@@ -1199,10 +1166,7 @@ let valorFrete = 0;
 
         function atualizarInterfaceCarrinho() {
             const container = document.getElementById('cartItemsContainer');
-            const cartCount = document.getElementById('cart-count');
             const cartTotalPrice = document.getElementById('cartTotalPrice');
-
-            if(cartCount) cartCount.textContent = carrinho.length;
 
             if(!container) return;
 
@@ -1252,7 +1216,7 @@ let valorFrete = 0;
                 </div>
             `;
 
-            // Botão Continuar Comprando
+            // Botão Continuar Comprando (recolhe o painel lateral)
             html += `
                 <div style="margin-top: 15px; text-align: center;">
                     <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 10px;">Continuar Comprando</button>
