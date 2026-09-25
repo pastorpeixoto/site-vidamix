@@ -1299,7 +1299,6 @@
             const valorTotal = subtotal + (valorFrete || 0);
             const totalFmt = valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             mensagem += "\n*Total Geral:* " + totalFmt;
-
             let selectPagamento = document.getElementById('forma-pagamento');
             let formaPagamento = selectPagamento ? selectPagamento.value : 'Pix';
             
