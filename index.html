@@ -1080,7 +1080,7 @@
             }
         }
 
-     let valorFrete = 0;
+    let valorFrete = 0;
         let cepDestino = "";
 
         function adicionarAoCarrinho(button, nomeProduto, precoBase) {
@@ -1121,6 +1121,12 @@
             }
 
             atualizarInterfaceCarrinho();
+            
+            // Abre a cesta automaticamente na tela após adicionar o produto
+            const cartDrawer = document.getElementById('cartDrawer');
+            if (cartDrawer && !cartDrawer.classList.contains('open')) {
+                toggleCart();
+            }
         }
 
         function alterarQuantidade(index, operacao) {
