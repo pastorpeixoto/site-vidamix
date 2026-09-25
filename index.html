@@ -1080,7 +1080,10 @@
             }
         }
 
-     function adicionarAoCarrinho(button, nomeProduto, precoBase) {
+     let valorFrete = 0;
+        let cepDestino = "";
+
+        function adicionarAoCarrinho(button, nomeProduto, precoBase) {
             const card = button.closest('.product-card');
             const tipo = card.dataset.tipo;
             let quantidade = 1;
@@ -1118,7 +1121,6 @@
             }
 
             atualizarInterfaceCarrinho();
-            toggleCart();
         }
 
         function alterarQuantidade(index, operacao) {
@@ -1152,6 +1154,36 @@
             atualizarInterfaceCarrinho();
         }
 
+        function calcularFrete() {
+            const inputCep = document.getElementById('inputCep');
+            const cepVal = inputCep ? inputCep.value.replace(/\D/g, '') : '';
+
+            if (cepVal.length !== 8) {
+                alert('Por favor, digite um CEP válido com 8 dígitos.');
+                return;
+            }
+
+            cepDestino = inputCep.value;
+
+            // Se o CEP começa com 87 (Região de Maringá)
+            if (cepVal.startsWith('87')) {
+                // Faixa específica de Maringá (87000 a 87089 aproximadamente)
+                const prefixoNum = parseInt(cepVal.substring(0, 4));
+                if (prefixoNum >= 8700 && prefixoNum <= 8708) {
+                    valorFrete = 12.00;
+                    alert('Frete para Maringá: R$ 12,00');
+                } else {
+                    valorFrete = 15.00;
+                    alert('Frete para Cidades da Região: R$ 15,00');
+                }
+            } else {
+                valorFrete = 15.00;
+                alert('Frete calculado para a região: R$ 15,00');
+            }
+
+            atualizarInterfaceCarrinho();
+        }
+
         function atualizarInterfaceCarrinho() {
             const container = document.getElementById('cartItemsContainer');
             const cartCount = document.getElementById('cart-count');
@@ -1164,14 +1196,16 @@
             if (carrinho.length === 0) {
                 container.innerHTML = '<p style="text-align: center; color: #64748b; margin-top: 40px;">Sua cesta está vazia.</p>';
                 if(cartTotalPrice) cartTotalPrice.textContent = 'R$ 0,00';
+                valorFrete = 0;
+                cepDestino = "";
                 return;
             }
 
             let html = '';
-            let totalGeral = 0;
+            let subtotalProdutos = 0;
 
             carrinho.forEach((item, index) => {
-                totalGeral += item.precoTotal;
+                subtotalProdutos += item.precoTotal;
                 const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 html += `
                     <div class="cart-item" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
@@ -1189,14 +1223,32 @@
                 `;
             });
 
-            // Botão de Continuar Comprando dentro da cesta
+            // Seção de Cálculo de Frete
+            const freteFmt = valorFrete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             html += `
-                <div style="margin-top: 20px; text-align: center;">
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #eee;">
+                    <label style="font-size: 0.85rem; font-weight: bold; color: #444; display: block; margin-bottom: 5px;">Consulte o Frete por CEP:</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="inputCep" placeholder="Digite seu CEP" value="${cepDestino}" maxlength="9" style="flex: 1; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem;">
+                        <button type="button" onclick="calcularFrete()" style="padding: 8px 12px; background: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85rem;">Calcular</button>
+                    </div>
+                    <div style="margin-top: 8px; font-size: 0.9rem; color: #334155; display: flex; justify-content: space-between;">
+                        <span>Frete:</span>
+                        <span style="font-weight: bold;">${valorFrete > 0 ? freteFmt : 'A calcular'}</span>
+                    </div>
+                </div>
+            `;
+
+            // Botão de Continuar Comprando
+            html += `
+                <div style="margin-top: 15px; text-align: center;">
                     <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 10px;">Continuar Comprando</button>
                 </div>
             `;
 
             container.innerHTML = html;
+
+            const totalGeral = subtotalProdutos + valorFrete;
             if(cartTotalPrice) {
                 cartTotalPrice.textContent = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             }
@@ -1209,16 +1261,27 @@
             }
 
             let mensagem = "Olá! Gostaria de fazer o seguinte pedido na Vidamix®:\n\n";
-            let totalGeral = 0;
+            let subtotal = 0;
 
             carrinho.forEach(item => {
                 const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 mensagem += "• " + item.descricaoQtd + " de " + item.nome + " (" + precoFmt + ")\n";
-                totalGeral += item.precoTotal;
+                subtotal += item.precoTotal;
             });
 
+            const subtotalFmt = subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            mensagem += "\n*Subtotal dos Produtos:* " + subtotalFmt;
+
+            if (valorFrete > 0) {
+                const freteFmt = valorFrete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                mensagem += "\n*Frete (" + (cepDestino ? "CEP: " + cepDestino : "Região") + "):* " + freteFmt;
+            } else {
+                mensagem += "\n*Frete:* A calcular";
+            }
+
+            const totalGeral = subtotal + valorFrete;
             const totalFmt = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            mensagem += "\n*Valor Total des Produtos:* " + totalFmt + "\n*(Aguardando cálculo do frete e confirmação de endereço).*";
+            mensagem += "\n\n*Valor Total Geral:* " + totalFmt;
 
             const urlWhatsApp = "https://wa.me/5544998546285?text=" + encodeURIComponent(mensagem);
             window.open(urlWhatsApp, '_blank');
