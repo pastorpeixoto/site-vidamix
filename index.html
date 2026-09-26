@@ -217,7 +217,6 @@
             color: var(--dark-color);
         }
 
-        /* CORREÇÃO DO INPUT PARA FUNCIONAR NO CELULAR */
         .input-group input {
             width: 100%;
             padding: 10px;
@@ -280,6 +279,7 @@
             box-shadow: -4px 0 15px rgba(0,0,0,0.1);
             transform: translateX(100%);
             transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
         }
 
         .cart-overlay.active {
@@ -313,8 +313,6 @@
         }
 
         .cart-items {
-            flex: 1;
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -961,27 +959,38 @@
                 <h2>Sua Cesta Vidamix®</h2>
                 <button type="button" class="close-cart" onclick="toggleCart(event)">&times;</button>
             </div>
+            
+            <!-- ITENS DO CARRINHO -->
             <div class="cart-items" id="cartItemsContainer">
                 <p style="text-align: center; color: #64748b; margin-top: 40px;">Sua cesta está vazia.</p>
             </div>
+
             <div class="cart-footer">
                 <div class="cart-total">
                     <span>Total:</span>
                     <span id="cartTotalPrice">R$ 0,00</span>
                 </div>
                 
-                <!-- Forma de Pagamento e Botão de Copiar Chave Pix -->
-                <div style="margin-bottom: 12px; padding: 10px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px;">
+                <!-- BOTÃO CONTINUAR COMPRANDO (COLOCADO EM CIMA) -->
+                <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 15px;">← Continuar Comprando</button>
+
+                <!-- FORMA DE PAGAMENTO, AVISO E PIX -->
+                <div style="margin-bottom: 15px; padding: 10px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px;">
                     <label style="font-size: 0.85rem; font-weight: bold; color: #1e293b; display: block; margin-bottom: 4px;">Forma de Pagamento:</label>
                     <select id="forma-pagamento" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; font-weight: bold; background: #ffffff; color: var(--primary-color); margin-bottom: 8px;">
                         <option value="Pix (Chave: belabelpeixoto@gmail.com)" selected>Pix (Chave: belabelpeixoto@gmail.com)</option>
                     </select>
+                    
+                    <!-- AVISO IMPORTANTE SOBRE O PIX E A CONFECÇÃO -->
+                    <p style="font-size: 0.75rem; color: #b91c1c; line-height: 1.3; margin-bottom: 8px; font-weight: 500;">
+                        ⚠️ <strong>Atenção:</strong> Copie a chave Pix, realize o pagamento e envie o comprovante no WhatsApp. O pedido só será confeccionado após a confirmação.
+                    </p>
+
                     <button type="button" onclick="copiarChavePix(this)" style="width: 100%; padding: 10px; background-color: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; transition: background 0.2s;">📋 Copiar Chave Pix</button>
                 </div>
 
-                <!-- ORDEM INVERTIDA: WhatsApp primeiro, depois Continuar Comprando -->
-                <button type="button" class="btn" style="background-color: #25d366; color: white; width: 100%; font-size: 16px; margin-bottom: 8px;" onclick="enviarPedidoWhatsApp()">Finalizar Pedido no WhatsApp</button>
-                <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold;">Continuar Comprando</button>
+                <!-- FINALIZAR NO WHATSAPP -->
+                <button type="button" class="btn" style="background-color: #25d366; color: white; width: 100%; font-size: 16px;" onclick="enviarPedidoWhatsApp()">Finalizar Pedido no WhatsApp</button>
             </div>
         </div>
     </div>
@@ -1059,17 +1068,37 @@
 
         function copiarChavePix(botao) {
             const chave = "belabelpeixoto@gmail.com";
-            navigator.clipboard.writeText(chave).then(() => {
-                const textoOriginal = botao.textContent;
-                botao.textContent = "✅ Chave Pix Copiada!";
-                botao.style.backgroundColor = "#16a34a";
-                setTimeout(() => {
-                    botao.textContent = textoOriginal;
-                    botao.style.backgroundColor = "#0ea5e9";
-                }, 2500);
-            }).catch(err => {
-                alert('Erro ao copiar chave Pix. Chave: ' + chave);
-            });
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(chave).then(() => {
+                    const textoOriginal = botao.textContent;
+                    botao.textContent = "✓ Chave Pix Copiada!";
+                    botao.style.backgroundColor = "#16a34a";
+                    setTimeout(() => {
+                        botao.textContent = textoOriginal;
+                        botao.style.backgroundColor = "#0ea5e9";
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Erro ao copiar:', err);
+                });
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = chave;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    botao.textContent = "✓ Chave Pix Copiada!";
+                    botao.style.backgroundColor = "#16a34a";
+                    setTimeout(() => {
+                        botao.textContent = "📋 Copiar Chave Pix";
+                        botao.style.backgroundColor = "#0ea5e9";
+                    }, 2000);
+                } catch (err) {
+                    alert("Erro ao copiar chave Pix. A chave é: " + chave);
+                }
+                document.body.removeChild(textArea);
+            }
         }
 
         function toggleCart(event) {
