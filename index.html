@@ -966,27 +966,33 @@
             </div>
 
             <div class="cart-footer">
+                
+                <!-- BOTÃO CONTINUAR COMPRANDO (COLOCADO ANTES DO FRETE POR CEP) -->
+                <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 15px;">← Continuar Comprando</button>
+
+                <!-- ÁREA DE FRETE POR CEP -->
+                <div id="freteSectionContainer" style="margin-bottom: 15px; padding-top: 5px; border-top: 1px solid #eee;">
+                    <!-- Preenchido dinamicamente pelo JavaScript -->
+                </div>
+
                 <div class="cart-total">
                     <span>Total:</span>
                     <span id="cartTotalPrice">R$ 0,00</span>
                 </div>
-                
-                <!-- BOTÃO CONTINUAR COMPRANDO (COLOCADO EM CIMA) -->
-                <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 15px;">← Continuar Comprando</button>
 
-                <!-- FORMA DE PAGAMENTO, AVISO E PIX -->
+                <!-- FORMA DE PAGAMENTO E AVISO DO PIX -->
                 <div style="margin-bottom: 15px; padding: 10px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px;">
                     <label style="font-size: 0.85rem; font-weight: bold; color: #1e293b; display: block; margin-bottom: 4px;">Forma de Pagamento:</label>
                     <select id="forma-pagamento" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; font-weight: bold; background: #ffffff; color: var(--primary-color); margin-bottom: 8px;">
                         <option value="Pix (Chave: belabelpeixoto@gmail.com)" selected>Pix (Chave: belabelpeixoto@gmail.com)</option>
                     </select>
-                    
-                    <!-- AVISO IMPORTANTE SOBRE O PIX E A CONFECÇÃO -->
-                    <p style="font-size: 0.75rem; color: #b91c1c; line-height: 1.3; margin-bottom: 8px; font-weight: 500;">
-                        ⚠️ <strong>Atenção:</strong> Copie a chave Pix, realize o pagamento e envie o comprovante no WhatsApp. O pedido só será confeccionado após a confirmação.
-                    </p>
 
-                    <button type="button" onclick="copiarChavePix(this)" style="width: 100%; padding: 10px; background-color: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; transition: background 0.2s;">📋 Copiar Chave Pix</button>
+                    <button type="button" onclick="copiarChavePix(this)" style="width: 100%; padding: 10px; background-color: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; transition: background 0.2s; margin-bottom: 8px;">📋 Copiar Chave Pix</button>
+                    
+                    <!-- AVISO CLARO SOBRE O PIX E A CONFECÇÃO -->
+                    <p style="font-size: 0.78rem; color: #b91c1c; line-height: 1.4; font-weight: 600; text-align: center;">
+                        ⚠️ O cliente deve realizar o pagamento e enviar o comprovante para o WhatsApp para que o produto seja confeccionado.
+                    </p>
                 </div>
 
                 <!-- FINALIZAR NO WHATSAPP -->
@@ -1041,6 +1047,7 @@
                     atualizarValor(input, nome);
                 }
             });
+            atualizarInterfaceCarrinho();
         });
 
         function atualizarValor(input, nomeProduto) {
@@ -1219,12 +1226,14 @@
 
         function atualizarInterfaceCarrinho() {
             const container = document.getElementById('cartItemsContainer');
+            const freteContainer = document.getElementById('freteSectionContainer');
             const cartTotalPrice = document.getElementById('cartTotalPrice');
 
             if(!container) return;
 
             if (carrinho.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #64748b; margin-top: 40px;">Sua cesta está vazia.</p>';
+                container.innerHTML = '<p style="text-align: center; color: #64748b; margin-top: 20px;">Sua cesta está vazia.</p>';
+                if(freteContainer) freteContainer.innerHTML = '';
                 if(cartTotalPrice) cartTotalPrice.textContent = 'R$ 0,00';
                 valorFrete = 0;
                 cepDestino = "";
@@ -1253,9 +1262,12 @@
                 `;
             });
 
+            container.innerHTML = html;
+
+            // Renderiza a seção de CEP abaixo do botão "Continuar Comprando" e acima do Total
             const freteFmt = valorFrete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            html += `
-                <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #eee;">
+            if(freteContainer) {
+                freteContainer.innerHTML = `
                     <label style="font-size: 0.85rem; font-weight: bold; color: #444; display: block; margin-bottom: 5px;">Consulte o Frete por CEP:</label>
                     <div style="display: flex; gap: 8px;">
                         <input type="text" id="inputCep" placeholder="Digite seu CEP" value="${cepDestino}" maxlength="9" style="flex: 1; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem;">
@@ -1265,10 +1277,8 @@
                         <span>Frete:</span>
                         <span style="font-weight: bold;">${valorFrete > 0 ? freteFmt : 'A calcular'}</span>
                     </div>
-                </div>
-            `;
-
-            container.innerHTML = html;
+                `;
+            }
 
             const totalGeral = subtotalProdutos + valorFrete;
             if(cartTotalPrice) {
