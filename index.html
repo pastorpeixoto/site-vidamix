@@ -973,7 +973,17 @@
                     <span>Total:</span>
                     <span id="cartTotalPrice">R$ 0,00</span>
                 </div>
-                <button type="button" class="btn" style="background-color: #25d366; color: white; width: 100%; font-size: 16px;" onclick="enviarPedidoWhatsApp()">Finalizar Pedido no WhatsApp</button>
+                
+                <!-- Forma de Pagamento FIXA logo acima dos botões finais -->
+                <div style="margin-bottom: 12px; padding: 10px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <label style="font-size: 0.85rem; font-weight: bold; color: #1e293b; display: block; margin-bottom: 4px;">Forma de Pagamento:</label>
+                    <select id="forma-pagamento" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; font-weight: bold; background: #ffffff; color: var(--primary-color);">
+                        <option value="Pix (Chave: belabelpeixoto@gmail.com)" selected>Pix (Chave: belabelpeixoto@gmail.com)</option>
+                    </select>
+                </div>
+
+                <button type="button" class="btn" style="background-color: #25d366; color: white; width: 100%; font-size: 16px; margin-bottom: 8px;" onclick="enviarPedidoWhatsApp()">Finalizar Pedido no WhatsApp</button>
+                <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold;">Continuar Comprando</button>
             </div>
         </div>
     </div>
@@ -1213,23 +1223,6 @@
                         <span>Frete:</span>
                         <span style="font-weight: bold;">${valorFrete > 0 ? freteFmt : 'A calcular'}</span>
                     </div>
-                </div>
-            `;
-
-            // Bloco de Pagamento com Pix destacado
-            html += `
-                <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #eee;">
-                    <label style="font-size: 0.85rem; font-weight: bold; color: #444; display: block; margin-bottom: 5px;">Forma de Pagamento:</label>
-                    <select id="forma-pagamento" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; font-weight: bold; background: #f8fafc; color: var(--primary-color);">
-                        <option value="Pix (Chave: belabelpeixoto@gmail.com)" selected>Pix (Chave: belabelpeixoto@gmail.com)</option>
-                    </select>
-                    <p style="font-size: 11px; color: #64748b; margin-top: 40px;">* Pagamento via Pix com envio do comprovante pelo WhatsApp.</p>
-                </div>
-            `;
-
-            html += `
-                <div style="margin-top: 15px; text-align: center;">
-                    <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 10px;">Continuar Comprando</button>
                 </div>
             `;
 
