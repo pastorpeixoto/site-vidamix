@@ -20,6 +20,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -87,14 +88,6 @@
 
         nav ul li a:hover {
             color: var(--vidamix-blue);
-        }
-
-        #cart-count {
-            background: var(--price-color);
-            color: white;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 12px;
         }
 
         /* Seção Hero com Azul Claro Clássico */
@@ -224,16 +217,19 @@
             color: var(--dark-color);
         }
 
+        /* CORREÇÃO DO INPUT PARA FUNCIONAR PERFEITAMENTE NO CELULAR */
         .input-group input {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
+            padding: 10px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
             text-align: center;
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 16px; /* Evita zoom automático no iOS e melhora toque */
+            font-weight: 700;
             color: var(--dark-color);
-            background: #f1f5f9;
+            background: #ffffff;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .input-group input:focus {
@@ -487,7 +483,7 @@
                     <p>Massa artesanal macia e saborosa.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão australiano')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão australiano')" onchange="atualizarValor(this, 'Pão australiano')">
                     </div>
                 </div>
                 <div>
@@ -504,7 +500,7 @@
                     <p>Opção saudável e nutritiva.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão low carb')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão low carb')" onchange="atualizarValor(this, 'Pão low carb')">
                     </div>
                 </div>
                 <div>
@@ -521,7 +517,7 @@
                     <p>Rico em fibras e sementes selecionadas.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de sementes integral')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de sementes integral')" onchange="atualizarValor(this, 'Pão de sementes integral')">
                     </div>
                 </div>
                 <div>
@@ -538,7 +534,7 @@
                     <p>Casca crocante e miolo macio.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão italiano')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão italiano')" onchange="atualizarValor(this, 'Pão italiano')">
                     </div>
                 </div>
                 <div>
@@ -555,7 +551,7 @@
                     <p>Sabor de infância, memória afetiva, sequinho e saboroso.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolinho frito da vovó')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolinho frito da vovó')" onchange="atualizarValor(this, 'Bolinho frito da vovó')">
                     </div>
                 </div>
                 <div>
@@ -572,7 +568,7 @@
                     <p>Massa leve, fofinha, com gergelim, ideal para lanches saborosos.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de hambúrguer')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de hambúrguer')" onchange="atualizarValor(this, 'Pão de hambúrguer')">
                     </div>
                 </div>
                 <div>
@@ -589,7 +585,7 @@
                     <p>Recheio saboroso, de frango, temperado artesanalmente.</p>
                     <div class="input-group">
                         <label>Quantidade (Mín. 6 un.):</label>
-                        <input type="number" class="input-qtd" value="6" min="6" step="1" oninput="atualizarValor(this, 'Pãozinho recheado')">
+                        <input type="number" class="input-qtd" value="6" min="6" step="1" oninput="atualizarValor(this, 'Pãozinho recheado')" onchange="atualizarValor(this, 'Pãozinho recheado')">
                     </div>
                 </div>
                 <div>
@@ -606,7 +602,7 @@
                     <p>Massa artesanal, macia, com recheio temperado e gergelim.</p>
                     <div class="input-group">
                         <label>Quantidade (Mín. 6 un.):</label>
-                        <input type="number" class="input-qtd" value="6" min="6" step="1" oninput="atualizarValor(this, 'Esfiha de carne ou frango')">
+                        <input type="number" class="input-qtd" value="6" min="6" step="1" oninput="atualizarValor(this, 'Esfiha de carne ou frango')" onchange="atualizarValor(this, 'Esfiha de carne ou frango')">
                     </div>
                 </div>
                 <div>
@@ -623,7 +619,7 @@
                     <p>Bolo artesanal com sabor caseiro inconfundível.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de banana')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de banana')" onchange="atualizarValor(this, 'Bolo de banana')">
                     </div>
                 </div>
                 <div>
@@ -640,7 +636,7 @@
                     <p>Aromatizado com toque especial de café.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de café')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de café')" onchange="atualizarValor(this, 'Bolo de café')">
                     </div>
                 </div>
                 <div>
@@ -657,7 +653,7 @@
                     <p>A combinação perfeita de massas tradicionais.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo mesclado simples')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo mesclado simples')" onchange="atualizarValor(this, 'Bolo mesclado simples')">
                     </div>
                 </div>
                 <div>
@@ -674,7 +670,7 @@
                     <p>Ideal para o seu lanche diário com leveza e sabor.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de lanche')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de lanche')" onchange="atualizarValor(this, 'Pão de lanche')">
                     </div>
                 </div>
                 <div>
@@ -691,7 +687,7 @@
                     <p>Composto por uma seleção especial de grãos.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão multigrãos')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão multigrãos')" onchange="atualizarValor(this, 'Pão multigrãos')">
                     </div>
                 </div>
                 <div>
@@ -708,7 +704,7 @@
                     <p>Macio e adocicado na medida certa.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão tipo bisnaguinha')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão tipo bisnaguinha')" onchange="atualizarValor(this, 'Pão tipo bisnaguinha')">
                     </div>
                 </div>
                 <div>
@@ -725,7 +721,7 @@
                     <p>Nutritivo, saboroso e com textura incomparável.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de batata-doce')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de batata-doce')" onchange="atualizarValor(this, 'Pão de batata-doce')">
                     </div>
                 </div>
                 <div>
@@ -742,7 +738,7 @@
                     <p>Fresquinho com toque cítrico natural.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de laranja')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de laranja')" onchange="atualizarValor(this, 'Bolo de laranja')">
                     </div>
                 </div>
                 <div>
@@ -759,7 +755,7 @@
                     <p>Artesanal recheado com sementes nutritivas.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de sementes')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de sementes')" onchange="atualizarValor(this, 'Pão de sementes')">
                     </div>
                 </div>
                 <div>
@@ -776,7 +772,7 @@
                     <p>Textura rústica e sabor caseiro inconfundível.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de milho')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de milho')" onchange="atualizarValor(this, 'Pão de milho')">
                     </div>
                 </div>
                 <div>
@@ -793,7 +789,7 @@
                     <p>Combinação especial e aconchegante.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de batata-doce e bisnaguinha')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de batata-doce e bisnaguinha')" onchange="atualizarValor(this, 'Pão de batata-doce e bisnaguinha')">
                     </div>
                 </div>
                 <div>
@@ -810,7 +806,7 @@
                     <p>Perfeito para o dia a dia, fofinho e seguro.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de forma branco')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão de forma branco')" onchange="atualizarValor(this, 'Pão de forma branco')">
                     </div>
                 </div>
                 <div>
@@ -827,7 +823,7 @@
                     <p>Especialidade artesanal com recheio caprichado.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão recheado')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Pão recheado')" onchange="atualizarValor(this, 'Pão recheado')">
                     </div>
                 </div>
                 <div>
@@ -844,7 +840,7 @@
                     <p>Sabor marcante e textura artesanal exclusiva.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de amendoim')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de amendoim')" onchange="atualizarValor(this, 'Bolo de amendoim')">
                     </div>
                 </div>
                 <div>
@@ -861,7 +857,7 @@
                     <p>Intenso, aromático e com cacau de excelente qualidade.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de cacau')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de cacau')" onchange="atualizarValor(this, 'Bolo de cacau')">
                     </div>
                 </div>
                 <div>
@@ -878,7 +874,7 @@
                     <p>Massa que derrete na boca com recheio suculento.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Empadão de frango')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Empadão de frango')" onchange="atualizarValor(this, 'Empadão de frango')">
                     </div>
                 </div>
                 <div>
@@ -895,7 +891,7 @@
                     <p>Inspirado nos sabores clássicos e afetivos.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo tipo charge')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo tipo charge')" onchange="atualizarValor(this, 'Bolo tipo charge')">
                     </div>
                 </div>
                 <div>
@@ -912,7 +908,7 @@
                     <p>Fofinho, tradicional e com sabor inconfundível.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de cenoura')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de cenoura')" onchange="atualizarValor(this, 'Bolo de cenoura')">
                     </div>
                 </div>
                 <div>
@@ -929,7 +925,7 @@
                     <p>Toque refrescante e levemente ácido na medida certa.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de limão')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo de limão')" onchange="atualizarValor(this, 'Bolo de limão')">
                     </div>
                 </div>
                 <div>
@@ -946,7 +942,7 @@
                     <p>Deliciosa combinação com cobertura cremosa especial.</p>
                     <div class="input-group">
                         <label>Peso em Kg (Mín. 0.250kg):</label>
-                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo mesclado com cobertura de brigadeiro')">
+                        <input type="number" class="input-qtd" value="1.00" min="0.25" step="0.25" oninput="atualizarValor(this, 'Bolo mesclado com cobertura de brigadeiro')" onchange="atualizarValor(this, 'Bolo mesclado com cobertura de brigadeiro')">
                     </div>
                 </div>
                 <div>
@@ -974,12 +970,13 @@
                     <span id="cartTotalPrice">R$ 0,00</span>
                 </div>
                 
-                <!-- Forma de Pagamento FIXA logo acima dos botões finais -->
+                <!-- Forma de Pagamento FIXA com Botão de Copiar Chave Pix -->
                 <div style="margin-bottom: 12px; padding: 10px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px;">
                     <label style="font-size: 0.85rem; font-weight: bold; color: #1e293b; display: block; margin-bottom: 4px;">Forma de Pagamento:</label>
-                    <select id="forma-pagamento" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; font-weight: bold; background: #ffffff; color: var(--primary-color);">
+                    <select id="forma-pagamento" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; font-weight: bold; background: #ffffff; color: var(--primary-color); margin-bottom: 8px;">
                         <option value="Pix (Chave: belabelpeixoto@gmail.com)" selected>Pix (Chave: belabelpeixoto@gmail.com)</option>
                     </select>
+                    <button type="button" onclick="copiarChavePix(this)" style="width: 100%; padding: 8px; background-color: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: background 0.2s;">📋 Copiar Chave Pix</button>
                 </div>
 
                 <button type="button" class="btn" style="background-color: #25d366; color: white; width: 100%; font-size: 16px; margin-bottom: 8px;" onclick="enviarPedidoWhatsApp()">Finalizar Pedido no WhatsApp</button>
@@ -1057,6 +1054,21 @@
             if(displayPreco) {
                 displayPreco.textContent = precoFormatado;
             }
+        }
+
+        function copiarChavePix(botao) {
+            const chave = "belabelpeixoto@gmail.com";
+            navigator.clipboard.writeText(chave).then(() => {
+                const textoOriginal = botao.textContent;
+                botao.textContent = "✅ Chave Pix Copiada!";
+                botao.style.backgroundColor = "#16a34a";
+                setTimeout(() => {
+                    botao.textContent = textoOriginal;
+                    botao.style.backgroundColor = "#0ea5e9";
+                }, 2500);
+            }).catch(err => {
+                alert('Erro ao copiar chave Pix. Chave: ' + chave);
+            });
         }
 
         function toggleCart(event) {
