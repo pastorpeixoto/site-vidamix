@@ -1311,35 +1311,68 @@
             carrinho.forEach(item => {
                 const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 mensagem += "• " + item.descricaoQtd + " de " + item.nome + " (" + precoFmt + ")\n";
-                subtotal += item.precoTotal;
-            });
+     / Função que faz o botão "Adicionar à Cesta" funcionar
+    function adicionarAoCarrinho(botao, nomeProduto, precoBase) {
+        const card = botao.closest('.product-card');
+        if (!card) return;
 
-            const subtotalFmt = subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            mensagem += "\n*Subtotal dos Produtos:* " + subtotalFmt;
+        const inputQtd = card.querySelector('.input-qtd');
+        const quantidade = inputQtd ? parseFloat(inputQtd.value) || 1 : 1;
+        const precoTotal = quantidade * precoBase;
+        const descricaoQtd = quantidade + " kg";
 
-            if (typeof valorFrete !== 'undefined' && valorFrete > 0) {
-                const freteFmt = valorFrete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                mensagem += "\n*Frete:* " + freteFmt;
-            } else {
-                mensagem += "\n*Frete:* A calcular";
-            }
-
-            const valorTotal = subtotal + (typeof valorFrete !== 'undefined' ? valorFrete : 0);
-            const totalFmt = valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            mensagem += "\n*Total Geral:* " + totalFmt;
-            
-            let selectPagamento = document.getElementById('forma-pagamento');
-            let formaPagamento = selectPagamento ? selectPagamento.value : 'Pix';
-            
-            if (formaPagamento === 'Pix') {
-                mensagem += "\n*Forma de Pagamento:* Pix\n*Chave Pix:* belabelpeixoto@gmail.com";
-            } else {
-                mensagem += "\n*Forma de Pagamento:* " + formaPagamento;
-            }
-
-            const urlWhatsApp = "https://wa.me/5544998546285?text=" + encodeURIComponent(mensagem);
-            window.open(urlWhatsApp, '_blank');
+        if (typeof carrinho === 'undefined') {
+            window.carrinho = [];
         }
-    </script>
+        
+        carrinho.push({
+            nome: nomeProduto,
+            quantidade: quantidade,
+            descricaoQtd: descricaoQtd,
+            precoTotal: precoTotal
+        });
+        
+        alert(nomeProduto + " adicionado à cesta!");
+        
+        if (typeof atualizarCarrinho === 'function') {
+            atualizarCarrinho();
+        }
+    }
+
+    function enviarPedidoWhatsApp() {
+        if (typeof carrinho === 'undefined' || carrinho.length === 0) {
+            alert('Sua cesta está vazia!');
+            return;
+        }
+
+        let mensagem = "Olá! Gostaria de fazer o seguinte pedido na Vidamix®:\n\n";
+        let subtotal = 0;
+
+        carrinho.forEach(item => {
+            const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            mensagem += "• " + item.descricaoQtd + " de " + item.nome + " (" + precoFmt + ")\n";
+            subtotal += item.precoTotal;
+        }); // Fecha o forEach
+
+        const subtotalFmt = subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        mensagem += "\n*Subtotal dos Produtos:* " + subtotalFmt;
+
+        const valorTotal = subtotal;
+        const totalFmt = valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        mensagem += "\n*Total Geral:* " + totalFmt;
+        
+        let selectPagamento = document.getElementById('forma-pagamento');
+        let formaPagamento = selectPagamento ? selectPagamento.value : 'Pix';
+        
+        if (formaPagamento === 'Pix') {
+            mensagem += "\n*Forma de Pagamento:* Pix\n*Chave Pix:* belabelpeixoto@gmail.com";
+        } else {
+            mensagem += "\n*Forma de Pagamento:* " + formaPagamento;
+        }
+
+        const urlWhatsApp = "https://wa.me/5544998546285?text=" + encodeURIComponent(mensagem);
+        window.open(urlWhatsApp, '_blank');
+    }
+</script>
 </body>
 </html>
