@@ -418,7 +418,7 @@
 </head>
 <body>
 
-    <!-- Cabeçalho (Sem a palavra Cesta) -->
+    <!-- Cabeçalho -->
     <header>
         <div class="container">
             <a href="#" class="logo-area">
@@ -446,7 +446,7 @@
         </div>
     </section>
 
- <!-- Sobre a Marca -->
+    <!-- Sobre a Marca -->
     <section id="about" style="background: var(--light-color); padding: 50px 20px; text-align: center;">
         <div style="max-width: 800px; margin: 0 auto;">
             <h2 class="section-title">Sobre a Marca</h2>
@@ -1011,7 +1011,7 @@
         <p style="margin-top: 10px; color: #94a3b8; font-size: 12px;">Produtos artesanais sem glúten e sem lactose — Contato: 📱 (44) 99854-6285</p>
     </footer>
 
-    <!-- Lógica do Carrinho e Tela Dividida -->
+    <!-- Lógica do Carrinho e Funções Corrigidas -->
     <script>
         let carrinho = [];
         let valorFrete = 0;
@@ -1060,18 +1060,24 @@
 
         function adicionarAoCarrinho(button, nomeProduto, precoBase) {
             const card = button.closest('.product-card');
+            if (!card) return;
+
             const tipo = card.dataset.tipo;
             let quantidade = 1;
             let descricaoQtd = "";
 
-            if (tipo === 'peso' || tipo === 'unidade') {
-                const input = card.querySelector('.input-qtd');
+            const input = card.querySelector('.input-qtd');
+            if (input) {
                 quantidade = parseFloat(input.value) || (tipo === 'peso' ? 1 : 6);
-                
-                if (tipo === 'peso' && quantidade < 0.25) quantidade = 0.25;
-                if (tipo === 'unidade' && quantidade < 6) quantidade = 6;
+            }
+            
+            if (tipo === 'peso' && quantidade < 0.25) quantidade = 0.25;
+            if (tipo === 'unidade' && quantidade < 6) quantidade = 6;
 
-                descricaoQtd = tipo === 'peso' ? quantidade + "kg" : quantidade + " un.";
+            if (tipo === 'peso') {
+                descricaoQtd = quantidade + " kg";
+            } else if (tipo === 'unidade') {
+                descricaoQtd = quantidade + " un.";
             } else {
                 descricaoQtd = "1 un.";
             }
@@ -1093,52 +1099,10 @@
                     precoBase: precoBase,
                     tipo: tipo
                 });
-                function adicionarAoCarrinho(button, nomeProduto, precoBase) {
-    // 1. Encontra o cartão do produto na página
-    const card = button.closest('.product-card');
-    
-    // 2. Pega o tipo (peso ou unidade) e define a quantidade inicial
-    const tipo = card.dataset.tipo;
-    let quantidade = 1;
-    let descricaoQtd = "";
-
-    // 3. Pega o valor digitado no input de quantidade
-    const input = card.querySelector('.input-qtd');
-    if (input) {
-        quantidade = parseFloat(input.value) || (tipo === 'peso' ? 1 : 6);
-    }
-
-    // 4. Validações de quantidade mínima
-    if (tipo === 'peso') {
-        if (quantidade < 0.25) quantidade = 0.25;
-    } else {
-        if (quantidade < 6) quantidade = 6;
-    }
-
-    // 5. Formata a descrição da quantidade (kg ou un)
-    if (tipo === 'peso') {
-        descricaoQtd = quantidade + " kg";
-    } else {
-        descricaoQtd = quantidade + " un.";
-    }
-
-    // 6. CRIA O PRODUTO E ADICIONA NA CESTA (O que estava faltando!)
-    const produto = {
-        nome: nomeProduto,
-        preco: precoBase,
-        quantidade: quantidade,
-        descricao: descricaoQtd
-    };
-
-    // Certifique-se de que a sua lista de carrinho se chama 'carrinho'
-    // e que a função de atualizar a tela se chama 'atualizarCarrinho'
-    carrinho.push(produto);
-    atualizarCarrinho();
             }
 
             atualizarInterfaceCarrinho();
             
-            // Abre a cesta automaticamente na tela dividida ao adicionar
             const overlay = document.getElementById('cartOverlay');
             if (overlay && !overlay.classList.contains('active')) {
                 toggleCart();
@@ -1160,9 +1124,7 @@
             if (!item.tipo && item.quantidade < 1) item.quantidade = 1;
 
             if (item.tipo === 'peso') {
-                item.descricaoQtd = item.quantidade + "kg";
-            } else if (item.tipo === 'unidade') {
-                item.descricaoQtd = item.quantidade + " un.";
+                item.descricaoQtd = item.quantidade + " kg";
             } else {
                 item.descricaoQtd = item.quantidade + " un.";
             }
@@ -1225,22 +1187,21 @@
                 subtotalProdutos += item.precoTotal;
                 const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 html += `
-                    <div class="cart-item" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                    <div class="cart-item">
                         <div class="cart-item-info">
-                            <span class="cart-item-title" style="display: block; font-weight: bold;">${item.nome}</span>
-                            <span class="cart-item-details" style="font-size: 0.9rem; color: #555;">${precoFmt}</span>
+                            <span class="cart-item-title">${item.nome}</span>
+                            <span class="cart-item-details">${precoFmt}</span>
                             <div class="cart-qtd-controls" style="margin-top: 5px; display: flex; align-items: center; gap: 8px;">
                                 <button type="button" onclick="alterarQuantidade(${index}, '-')" style="padding: 2px 8px; cursor: pointer; background: #ddd; border: none; border-radius: 4px;">-</button>
                                 <span>${item.descricaoQtd}</span>
                                 <button type="button" onclick="alterarQuantidade(${index}, '+')" style="padding: 2px 8px; cursor: pointer; background: #ddd; border: none; border-radius: 4px;">+</button>
                             </div>
                         </div>
-                        <button type="button" class="cart-item-remove" onclick="removerDoCarrinho(${index})" style="background: none; border: none; color: #d9534f; cursor: pointer; font-size: 0.85rem;">Remover</button>
+                        <button type="button" class="cart-item-remove" onclick="removerDoCarrinho(${index})">Remover</button>
                     </div>
                 `;
             });
 
-            // Seção de Cálculo de Frete por CEP
             const freteFmt = valorFrete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             html += `
                 <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #eee;">
@@ -1256,7 +1217,6 @@
                 </div>
             `;
 
-            // Botão Continuar Comprando (recolhe o painel lateral)
             html += `
                 <div style="margin-top: 15px; text-align: center;">
                     <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold; margin-bottom: 10px;">Continuar Comprando</button>
@@ -1268,34 +1228,6 @@
             const totalGeral = subtotalProdutos + valorFrete;
             if(cartTotalPrice) {
                 cartTotalPrice.textContent = totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            }
-        }
-
-        / Função que faz o botão "Adicionar à Cesta" funcionar
-        function adicionarAoCarrinho(botao, nomeProduto, precoBase) {
-            const card = botao.closest('.product-card');
-            if (!card) return;
-
-            const inputQtd = card.querySelector('.input-qtd');
-            const quantidade = inputQtd ? parseFloat(inputQtd.value) || 1 : 1;
-            const precoTotal = quantidade * precoBase;
-            const descricaoQtd = quantidade + " kg";
-
-            if (typeof carrinho === 'undefined') {
-                window.carrinho = [];
-            }
-            
-            carrinho.push({
-                nome: nomeProduto,
-                quantidade: quantidade,
-                descricaoQtd: descricaoQtd,
-                precoTotal: precoTotal
-            });
-            
-            alert(nomeProduto + " adicionado à cesta!");
-            
-            if (typeof atualizarCarrinho === 'function') {
-                atualizarCarrinho();
             }
         }
 
@@ -1311,68 +1243,35 @@
             carrinho.forEach(item => {
                 const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 mensagem += "• " + item.descricaoQtd + " de " + item.nome + " (" + precoFmt + ")\n";
-     / Função que faz o botão "Adicionar à Cesta" funcionar
-    function adicionarAoCarrinho(botao, nomeProduto, precoBase) {
-        const card = botao.closest('.product-card');
-        if (!card) return;
+                subtotal += item.precoTotal;
+            });
 
-        const inputQtd = card.querySelector('.input-qtd');
-        const quantidade = inputQtd ? parseFloat(inputQtd.value) || 1 : 1;
-        const precoTotal = quantidade * precoBase;
-        const descricaoQtd = quantidade + " kg";
+            const subtotalFmt = subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            mensagem += "\n*Subtotal dos Produtos:* " + subtotalFmt;
 
-        if (typeof carrinho === 'undefined') {
-            window.carrinho = [];
+            if (valorFrete > 0) {
+                const freteFmt = valorFrete.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                mensagem += "\n*Frete (" + (cepDestino ? "CEP: " + cepDestino : "Região") + "):* " + freteFmt;
+            } else {
+                mensagem += "\n*Frete:* A calcular";
+            }
+
+            const valorTotal = subtotal + valorFrete;
+            const totalFmt = valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            mensagem += "\n*Total Geral:* " + totalFmt;
+            
+            let selectPagamento = document.getElementById('forma-pagamento');
+            let formaPagamento = selectPagamento ? selectPagamento.value : 'Pix';
+            
+            if (formaPagamento === 'Pix') {
+                mensagem += "\n*Forma de Pagamento:* Pix\n*Chave Pix:* belabelpeixoto@gmail.com";
+            } else {
+                mensagem += "\n*Forma de Pagamento:* " + formaPagamento;
+            }
+
+            const urlWhatsApp = "https://wa.me/5544998546285?text=" + encodeURIComponent(mensagem);
+            window.open(urlWhatsApp, '_blank');
         }
-        
-        carrinho.push({
-            nome: nomeProduto,
-            quantidade: quantidade,
-            descricaoQtd: descricaoQtd,
-            precoTotal: precoTotal
-        });
-        
-        alert(nomeProduto + " adicionado à cesta!");
-        
-        if (typeof atualizarCarrinho === 'function') {
-            atualizarCarrinho();
-        }
-    }
-
-    function enviarPedidoWhatsApp() {
-        if (typeof carrinho === 'undefined' || carrinho.length === 0) {
-            alert('Sua cesta está vazia!');
-            return;
-        }
-
-        let mensagem = "Olá! Gostaria de fazer o seguinte pedido na Vidamix®:\n\n";
-        let subtotal = 0;
-
-        carrinho.forEach(item => {
-            const precoFmt = item.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            mensagem += "• " + item.descricaoQtd + " de " + item.nome + " (" + precoFmt + ")\n";
-            subtotal += item.precoTotal;
-        }); // Fecha o forEach
-
-        const subtotalFmt = subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        mensagem += "\n*Subtotal dos Produtos:* " + subtotalFmt;
-
-        const valorTotal = subtotal;
-        const totalFmt = valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        mensagem += "\n*Total Geral:* " + totalFmt;
-        
-        let selectPagamento = document.getElementById('forma-pagamento');
-        let formaPagamento = selectPagamento ? selectPagamento.value : 'Pix';
-        
-        if (formaPagamento === 'Pix') {
-            mensagem += "\n*Forma de Pagamento:* Pix\n*Chave Pix:* belabelpeixoto@gmail.com";
-        } else {
-            mensagem += "\n*Forma de Pagamento:* " + formaPagamento;
-        }
-
-        const urlWhatsApp = "https://wa.me/5544998546285?text=" + encodeURIComponent(mensagem);
-        window.open(urlWhatsApp, '_blank');
-    }
-</script>
+    </script>
 </body>
 </html>
