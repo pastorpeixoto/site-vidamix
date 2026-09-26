@@ -217,14 +217,14 @@
             color: var(--dark-color);
         }
 
-        /* CORREÇÃO DO INPUT PARA FUNCIONAR PERFEITAMENTE NO CELULAR */
+        /* CORREÇÃO DO INPUT PARA FUNCIONAR NO CELULAR */
         .input-group input {
             width: 100%;
             padding: 10px;
             border: 2px solid #cbd5e1;
             border-radius: 8px;
             text-align: center;
-            font-size: 16px; /* Evita zoom automático no iOS e melhora toque */
+            font-size: 16px;
             font-weight: 700;
             color: var(--dark-color);
             background: #ffffff;
@@ -970,15 +970,16 @@
                     <span id="cartTotalPrice">R$ 0,00</span>
                 </div>
                 
-                <!-- Forma de Pagamento FIXA com Botão de Copiar Chave Pix -->
+                <!-- Forma de Pagamento e Botão de Copiar Chave Pix -->
                 <div style="margin-bottom: 12px; padding: 10px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px;">
                     <label style="font-size: 0.85rem; font-weight: bold; color: #1e293b; display: block; margin-bottom: 4px;">Forma de Pagamento:</label>
                     <select id="forma-pagamento" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; font-weight: bold; background: #ffffff; color: var(--primary-color); margin-bottom: 8px;">
                         <option value="Pix (Chave: belabelpeixoto@gmail.com)" selected>Pix (Chave: belabelpeixoto@gmail.com)</option>
                     </select>
-                    <button type="button" onclick="copiarChavePix(this)" style="width: 100%; padding: 8px; background-color: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: background 0.2s;">📋 Copiar Chave Pix</button>
+                    <button type="button" onclick="copiarChavePix(this)" style="width: 100%; padding: 10px; background-color: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; transition: background 0.2s;">📋 Copiar Chave Pix</button>
                 </div>
 
+                <!-- ORDEM INVERTIDA: WhatsApp primeiro, depois Continuar Comprando -->
                 <button type="button" class="btn" style="background-color: #25d366; color: white; width: 100%; font-size: 16px; margin-bottom: 8px;" onclick="enviarPedidoWhatsApp()">Finalizar Pedido no WhatsApp</button>
                 <button type="button" onclick="toggleCart()" style="width: 100%; padding: 10px; background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: bold;">Continuar Comprando</button>
             </div>
@@ -1017,7 +1018,7 @@
         <p style="margin-top: 10px; color: #94a3b8; font-size: 12px;">Produtos artesanais sem glúten e sem lactose — Contato: 📱 (44) 99854-6285</p>
     </footer>
 
-    <!-- Lógica do Carrinho e Funções Corrigidas -->
+    <!-- Lógica do Carrinho -->
     <script>
         let carrinho = [];
         let valorFrete = 0;
